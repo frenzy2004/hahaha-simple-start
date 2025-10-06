@@ -156,7 +156,7 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
       />
 
       {/* Header */}
-      <div className="bg-background shadow-sm border-b border-border px-6 py-4 flex items-center justify-between">
+      <div className="bg-background shadow-sm border-b border-border px-6 py-2.5 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <button
             onClick={onBack}
@@ -191,12 +191,12 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
       </div>
 
       {/* Sub-tabs */}
-      <div className="bg-background border-b border-border px-6 py-2">
-        <div className="text-xs text-muted-foreground mb-2">All Tabs</div>
+      <div className="bg-background border-b border-border px-6 py-1.5">
+        <div className="text-xs text-muted-foreground mb-1.5">All Tabs</div>
         <div className="flex gap-2 overflow-x-auto">
           <button
             onClick={() => setActiveTab('overview')}
-            className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+            className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
               activeTab === 'overview'
                 ? 'bg-primary text-primary-foreground shadow-sm'
                 : 'text-muted-foreground hover:text-foreground hover:bg-muted'
@@ -206,7 +206,7 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
           </button>
           <button
             onClick={() => setActiveTab('businesses')}
-            className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+            className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
               activeTab === 'businesses'
                 ? 'bg-primary text-primary-foreground shadow-sm'
                 : 'text-muted-foreground hover:text-foreground hover:bg-muted'
@@ -216,7 +216,7 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
           </button>
           <button
             onClick={() => setActiveTab('rent')}
-            className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+            className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
               activeTab === 'rent'
                 ? 'bg-primary text-primary-foreground shadow-sm'
                 : 'text-muted-foreground hover:text-foreground hover:bg-muted'
@@ -226,7 +226,7 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
           </button>
           <button
             onClick={() => setActiveTab('ai-insight')}
-            className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+            className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
               activeTab === 'ai-insight'
                 ? 'bg-primary text-primary-foreground shadow-sm'
                 : 'text-muted-foreground hover:text-foreground hover:bg-muted'
@@ -236,7 +236,7 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
           </button>
           <button
             onClick={() => setActiveTab('urban-development')}
-            className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+            className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
               activeTab === 'urban-development'
                 ? 'bg-primary text-primary-foreground shadow-sm'
                 : 'text-muted-foreground hover:text-foreground hover:bg-muted'
