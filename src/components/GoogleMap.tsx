@@ -183,13 +183,13 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ location, businesses, onBusinessC
 
   if (loadError) {
     return (
-      <div className={`bg-gray-100 rounded-lg flex items-center justify-center ${className}`}>
+      <div className={`bg-muted rounded-lg flex items-center justify-center ${className}`}>
         <div className="text-center p-8">
-          <div className="text-red-500 text-lg font-medium mb-2">Map Loading Error</div>
-          <div className="text-gray-600 text-sm">
+          <div className="text-destructive text-lg font-semibold mb-2">Map Loading Error</div>
+          <div className="text-muted-foreground text-sm">
             {loadError}
             {!import.meta.env.VITE_GOOGLE_MAPS_API_KEY && (
-              <div className="mt-2 p-3 bg-yellow-50 border border-yellow-200 rounded text-yellow-800">
+              <div className="mt-2 p-3 bg-warning-light border border-warning/20 rounded text-warning">
                 Please set VITE_GOOGLE_MAPS_API_KEY in your environment variables
               </div>
             )}
@@ -201,10 +201,10 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ location, businesses, onBusinessC
 
   if (!isLoaded) {
     return (
-      <div className={`bg-gray-100 rounded-lg flex items-center justify-center ${className}`}>
+      <div className={`bg-muted rounded-lg flex items-center justify-center ${className}`}>
         <div className="text-center p-8">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <div className="text-gray-600">Loading map...</div>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+          <div className="text-muted-foreground">Loading map...</div>
         </div>
       </div>
     );

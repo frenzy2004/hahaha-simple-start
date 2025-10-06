@@ -4,12 +4,13 @@
 
 @layer base {
   :root {
-    /* Primary colors */
+    /* Primary colors - Modern Blue */
     --primary: 217 91% 60%;
     --primary-hover: 217 91% 50%;
     --primary-light: 217 91% 95%;
+    --primary-dark: 217 91% 35%;
     
-    /* Neutral colors */
+    /* Neutral colors - Clean and minimal */
     --background: 0 0% 100%;
     --foreground: 222 47% 11%;
     --muted: 210 40% 96%;
@@ -19,20 +20,70 @@
     /* Semantic colors */
     --success: 142 71% 45%;
     --success-hover: 142 71% 35%;
+    --success-light: 142 71% 95%;
     --destructive: 0 84% 60%;
     --destructive-hover: 0 84% 50%;
+    --warning: 38 92% 50%;
+    --warning-light: 38 92% 95%;
     
     /* Input colors */
     --input-border: 214 32% 91%;
     --input-focus: 217 91% 60%;
     --input-bg: 0 0% 100%;
+    
+    /* Card colors */
+    --card-bg: 0 0% 100%;
+    --card-border: 214 32% 91%;
+    
+    /* Accent colors */
+    --accent-blue: 217 91% 95%;
+    --accent-yellow: 48 96% 53%;
+    --accent-green: 142 71% 95%;
+  }
+  
+  /* Typography baseline */
+  * {
+    @apply antialiased;
+  }
+  
+  body {
+    @apply text-foreground bg-background;
+    font-feature-settings: "kern" 1, "liga" 1;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold text-foreground;
+  }
+  
+  h1 {
+    @apply text-3xl lg:text-4xl;
+  }
+  
+  h2 {
+    @apply text-2xl lg:text-3xl;
+  }
+  
+  h3 {
+    @apply text-xl lg:text-2xl;
+  }
+  
+  h4 {
+    @apply text-lg lg:text-xl;
+  }
+  
+  h5 {
+    @apply text-base lg:text-lg;
+  }
+  
+  h6 {
+    @apply text-sm lg:text-base;
   }
 }
 
 @layer components {
   /* Button Base Styles */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed text-sm;
   }
   
   .btn-primary {
@@ -61,7 +112,7 @@
   
   /* Input Field Styles */
   .input {
-    @apply w-full px-4 py-3 border border-input-border rounded-lg bg-input-bg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-input-focus focus:border-transparent transition-all duration-200;
+    @apply w-full px-4 py-3 border border-input-border rounded-lg bg-input-bg text-foreground text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-input-focus focus:border-transparent transition-all duration-200;
   }
   
   .input-with-icon {
@@ -83,5 +134,48 @@
   
   .input-hint {
     @apply text-sm text-muted-foreground mt-2;
+  }
+  
+  /* Card Styles */
+  .card {
+    @apply bg-card-bg border border-card-border rounded-xl shadow-sm;
+  }
+  
+  .card-header {
+    @apply p-6 border-b border-card-border;
+  }
+  
+  .card-body {
+    @apply p-6;
+  }
+  
+  .card-footer {
+    @apply p-6 border-t border-card-border;
+  }
+  
+  /* Badge Styles */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+  
+  .badge-primary {
+    @apply badge bg-primary-light text-primary;
+  }
+  
+  .badge-success {
+    @apply badge bg-success-light text-success;
+  }
+  
+  .badge-warning {
+    @apply badge bg-warning-light text-warning;
+  }
+  
+  /* Section Styles */
+  .section-title {
+    @apply text-lg font-semibold text-foreground mb-4 flex items-center gap-2;
+  }
+  
+  .section-subtitle {
+    @apply text-sm text-muted-foreground mb-3;
   }
 }

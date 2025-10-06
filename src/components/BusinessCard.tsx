@@ -15,16 +15,16 @@ const BusinessCard: React.FC<BusinessCardProps> = ({ business, onClick }) => {
 
     for (let i = 0; i < fullStars; i++) {
       stars.push(
-        <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+        <Star key={i} className="w-4 h-4 fill-accent-yellow text-accent-yellow" />
       );
     }
 
     if (hasHalfStar) {
       stars.push(
         <div key="half" className="relative">
-          <Star className="w-4 h-4 text-gray-300" />
+          <Star className="w-4 h-4 text-border" />
           <div className="absolute inset-0 overflow-hidden w-1/2">
-            <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+            <Star className="w-4 h-4 fill-accent-yellow text-accent-yellow" />
           </div>
         </div>
       );
@@ -33,7 +33,7 @@ const BusinessCard: React.FC<BusinessCardProps> = ({ business, onClick }) => {
     const remainingStars = 5 - Math.ceil(rating);
     for (let i = 0; i < remainingStars; i++) {
       stars.push(
-        <Star key={`empty-${i}`} className="w-4 h-4 text-gray-300" />
+        <Star key={`empty-${i}`} className="w-4 h-4 text-border" />
       );
     }
 
@@ -42,38 +42,38 @@ const BusinessCard: React.FC<BusinessCardProps> = ({ business, onClick }) => {
 
   return (
     <div
-      className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:scale-[1.02]"
+      className="card hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:scale-[1.02]"
       onClick={() => onClick(business)}
     >
       <div className="flex p-4 gap-4">
         <img
           src={business.thumbnail}
           alt={business.name}
-          className="w-16 h-16 rounded-lg object-cover flex-shrink-0"
+          className="w-20 h-20 rounded-lg object-cover flex-shrink-0 shadow-sm"
         />
         <div className="flex-1 min-w-0">
-          <h3 className="font-semibold text-gray-900 truncate">{business.name}</h3>
-          <div className="flex items-center gap-2 mt-1">
-            <div className="flex items-center gap-1">
+          <h3 className="font-semibold text-foreground truncate text-base">{business.name}</h3>
+          <div className="flex items-center gap-2 mt-1.5">
+            <div className="flex items-center gap-0.5">
               {renderStars(business.rating)}
             </div>
-            <span className="text-sm text-gray-600">{business.rating}</span>
+            <span className="text-sm font-medium text-foreground">{business.rating}</span>
           </div>
-          <div className="flex items-center gap-1 mt-2 text-sm text-gray-600">
-            <MapPin className="w-4 h-4" />
+          <div className="flex items-center gap-1.5 mt-2 text-sm text-muted-foreground">
+            <MapPin className="w-3.5 h-3.5" />
             <span className="truncate">{business.address}</span>
           </div>
           <div className="flex items-center justify-between mt-2">
-            <span className="text-sm font-medium text-blue-600">{business.distance}km away</span>
-            <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
+            <span className="text-sm font-medium text-primary">{business.distance}km away</span>
+            <span className="badge-primary">
               {business.category}
             </span>
           </div>
         </div>
       </div>
-      <div className="border-t border-gray-100 px-4 py-3">
-        <div className="flex items-center gap-2 text-sm text-gray-600">
-          <Phone className="w-4 h-4" />
+      <div className="border-t border-card-border px-4 py-3">
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <Phone className="w-3.5 h-3.5" />
           <span>{business.contact}</span>
         </div>
       </div>

@@ -16,16 +16,16 @@ const BusinessDetail: React.FC<BusinessDetailProps> = ({ business, onClose, onRe
 
     for (let i = 0; i < fullStars; i++) {
       stars.push(
-        <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+        <Star key={i} className="w-5 h-5 fill-accent-yellow text-accent-yellow" />
       );
     }
 
     if (hasHalfStar) {
       stars.push(
         <div key="half" className="relative">
-          <Star className="w-5 h-5 text-gray-300" />
+          <Star className="w-5 h-5 text-border" />
           <div className="absolute inset-0 overflow-hidden w-1/2">
-            <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+            <Star className="w-5 h-5 fill-accent-yellow text-accent-yellow" />
           </div>
         </div>
       );
@@ -34,7 +34,7 @@ const BusinessDetail: React.FC<BusinessDetailProps> = ({ business, onClose, onRe
     const remainingStars = 5 - Math.ceil(rating);
     for (let i = 0; i < remainingStars; i++) {
       stars.push(
-        <Star key={`empty-${i}`} className="w-5 h-5 text-gray-300" />
+        <Star key={`empty-${i}`} className="w-5 h-5 text-border" />
       );
     }
 
@@ -45,8 +45,8 @@ const BusinessDetail: React.FC<BusinessDetailProps> = ({ business, onClose, onRe
   const minTrend = Math.min(...business.reviewTrend);
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+      <div className="card max-w-lg w-full max-h-[90vh] overflow-y-auto">
         <div className="relative">
           <img
             src={business.thumbnail}
@@ -63,49 +63,49 @@ const BusinessDetail: React.FC<BusinessDetailProps> = ({ business, onClose, onRe
         </div>
         
         <div className="p-6">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">{business.name}</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-2">{business.name}</h2>
           
           <div className="flex items-center gap-2 mb-4">
             <div className="flex items-center gap-1">
               {renderStars(business.rating)}
             </div>
-            <span className="text-lg font-medium text-gray-700">{business.rating}</span>
-            <span className="text-sm bg-blue-100 text-blue-800 px-2 py-1 rounded-full ml-2">
+            <span className="text-lg font-semibold text-foreground">{business.rating}</span>
+            <span className="badge-primary ml-2">
               {business.category}
             </span>
           </div>
 
           <div className="space-y-3 mb-6">
             <div className="flex items-start gap-3">
-              <MapPin className="w-5 h-5 text-gray-500 mt-0.5" />
+              <MapPin className="w-5 h-5 text-muted-foreground mt-0.5" />
               <div>
-                <div className="text-gray-700">{business.address}</div>
-                <div className="text-sm text-blue-600 font-medium">{business.distance}km from selected location</div>
+                <div className="text-foreground">{business.address}</div>
+                <div className="text-sm text-primary font-medium">{business.distance}km from selected location</div>
               </div>
             </div>
             
             <div className="flex items-center gap-3">
-              <Phone className="w-5 h-5 text-gray-500" />
-              <span className="text-gray-700">{business.contact}</span>
+              <Phone className="w-5 h-5 text-muted-foreground" />
+              <span className="text-foreground">{business.contact}</span>
             </div>
           </div>
 
-          <div className="bg-gray-50 rounded-lg p-4 mb-6">
+          <div className="bg-muted rounded-lg p-4 mb-6">
             <div className="flex items-center gap-2 mb-3">
-              <TrendingUp className="w-5 h-5 text-blue-600" />
-              <h3 className="font-semibold text-gray-900">Rating Trend (Last 6 Months)</h3>
+              <TrendingUp className="w-5 h-5 text-primary" />
+              <h3 className="font-semibold text-foreground">Rating Trend (Last 6 Months)</h3>
             </div>
             <div className="flex items-end gap-2 h-16">
               {business.reviewTrend.map((rating, index) => (
                 <div key={index} className="flex-1 flex flex-col items-center">
                   <div
-                    className="w-full bg-blue-500 rounded-t"
+                    className="w-full bg-primary rounded-t"
                     style={{
                       height: `${((rating - minTrend) / (maxTrend - minTrend)) * 100}%`,
                       minHeight: '20px',
                     }}
                   ></div>
-                  <div className="text-xs text-gray-600 mt-1">{rating}</div>
+                  <div className="text-xs text-muted-foreground mt-1">{rating}</div>
                 </div>
               ))}
             </div>

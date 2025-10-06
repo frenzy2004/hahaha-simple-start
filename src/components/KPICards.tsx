@@ -18,52 +18,51 @@ const KPICards: React.FC<KPICardsProps> = ({ kpis }) => {
       value: (kpis.revenuePotential / 1000).toFixed(0),
       unit: 'K RM',
       icon: Target,
-      color: 'bg-purple-500',
-      bgColor: 'bg-purple-50',
-      textColor: 'text-purple-700',
-      borderColor: 'border-purple-200',
+      color: 'bg-primary',
+      bgColor: 'bg-primary-light',
+      textColor: 'text-primary',
+      borderColor: 'border-primary/20',
     },
     {
       title: 'Competitor Count',
       value: kpis.competitorCount.toString(),
       unit: '',
       icon: Users,
-      color: 'bg-red-500',
-      bgColor: 'bg-red-50',
-      textColor: 'text-red-700',
-      borderColor: 'border-red-200',
+      color: 'bg-destructive',
+      bgColor: 'bg-destructive/10',
+      textColor: 'text-destructive',
+      borderColor: 'border-destructive/20',
     },
     {
       title: 'Avg Rating',
       value: kpis.avgRating.toFixed(1),
       unit: '⭐',
       icon: Star,
-      color: 'bg-yellow-500',
-      bgColor: 'bg-yellow-50',
-      textColor: 'text-yellow-700',
-      borderColor: 'border-yellow-200',
+      color: 'bg-warning',
+      bgColor: 'bg-warning-light',
+      textColor: 'text-warning',
+      borderColor: 'border-warning/20',
     },
     {
       title: 'Est. Monthly Demand',
       value: (kpis.monthlyDemand / 1000).toFixed(1),
       unit: 'K visits',
       icon: TrendingUp,
-      color: 'bg-green-500',
-      bgColor: 'bg-green-50',
-      textColor: 'text-green-700',
-      borderColor: 'border-green-200',
+      color: 'bg-success',
+      bgColor: 'bg-success-light',
+      textColor: 'text-success',
+      borderColor: 'border-success/20',
     },
     {
       title: 'Rent Sensitivity',
       value: kpis.rentSensitivity.toString(),
       unit: '/100',
       icon: DollarSign,
-      color: 'bg-blue-500',
-      bgColor: 'bg-blue-50',
-      textColor: 'text-blue-700',
-      borderColor: 'border-blue-200',
+      color: 'bg-primary-dark',
+      bgColor: 'bg-accent-blue',
+      textColor: 'text-primary-dark',
+      borderColor: 'border-primary/20',
     },
-
 
   ];
 
@@ -84,7 +83,7 @@ const KPICards: React.FC<KPICardsProps> = ({ kpis }) => {
               {card.value}
               <span className="text-lg font-medium ml-1">{card.unit}</span>
             </div>
-            <div className="text-sm text-gray-600 font-medium leading-tight">{card.title}</div>
+            <div className="text-sm text-muted-foreground font-medium leading-tight">{card.title}</div>
           </div>
         </div>
       ))}

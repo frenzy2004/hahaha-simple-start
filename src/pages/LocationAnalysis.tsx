@@ -220,8 +220,8 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
                   <X className="w-5 h-5" />
                 </button>
                 <div className="flex-1 lg:flex-none">
-                  <h2 className="text-lg font-semibold text-gray-900">Analysis Dashboard</h2>
-                  <p className="text-sm text-gray-600">{businessType} in {location}</p>
+                  <h2 className="text-lg font-semibold text-foreground">Analysis Dashboard</h2>
+                  <p className="text-sm text-muted-foreground">{businessType} in {location}</p>
                 </div>
               </div>
 
@@ -301,10 +301,10 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
           }`}
         >
           {isGeocoding ? (
-            <div className="w-full h-full bg-gray-100 flex items-center justify-center">
+            <div className="w-full h-full bg-muted flex items-center justify-center">
               <div className="text-center">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-                <div className="text-gray-600">Finding location...</div>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+                <div className="text-muted-foreground">Finding location...</div>
               </div>
             </div>
           ) : (

@@ -87,7 +87,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ onClose }) => {
             <Bot className="w-6 h-6" />
             <div>
               <h2 className="text-lg font-semibold">AI Location Assistant</h2>
-              <p className="text-blue-100 text-sm">Ask me about your location analysis</p>
+              <p className="text-white/90 text-sm">Ask me about your location analysis</p>
             </div>
           </div>
           <button
@@ -127,7 +127,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ onClose }) => {
                 <p className="text-sm">{message.text}</p>
                 <p
                   className={`text-xs mt-1 ${
-                    message.isUser ? 'text-blue-100' : 'text-muted-foreground'
+                    message.isUser ? 'text-white/70' : 'text-muted-foreground'
                   }`}
                 >
                   {message.timestamp.toLocaleTimeString([], {
@@ -146,9 +146,9 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ onClose }) => {
               </div>
               <div className="bg-muted px-4 py-2 rounded-2xl">
                 <div className="flex gap-1">
-                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                  <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce"></div>
+                  <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                  <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                 </div>
               </div>
             </div>

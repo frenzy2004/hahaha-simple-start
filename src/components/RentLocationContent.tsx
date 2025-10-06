@@ -157,15 +157,15 @@ const RentLocationContent: React.FC<RentLocationContentProps> = ({ location, bus
   };
 
   const getRentColor = (rent: number) => {
-    if (rent <= 15) return 'text-green-600';
-    if (rent <= 18) return 'text-yellow-600';
-    return 'text-red-600';
+    if (rent <= 15) return 'text-success';
+    if (rent <= 18) return 'text-warning';
+    return 'text-destructive';
   };
 
   const getRentBadgeColor = (rent: number) => {
-    if (rent <= 15) return 'bg-green-100 text-green-800';
-    if (rent <= 18) return 'bg-yellow-100 text-yellow-800';
-    return 'bg-red-100 text-red-800';
+    if (rent <= 15) return 'badge-success';
+    if (rent <= 18) return 'badge-warning';
+    return 'bg-destructive/10 text-destructive';
   };
 
   return (
@@ -181,20 +181,20 @@ const RentLocationContent: React.FC<RentLocationContentProps> = ({ location, bus
             <div className="text-2xl font-bold">
               {rentData.currency} {rentData.averageRent}
             </div>
-            <div className="text-blue-100 text-sm">Average Rent ({rentData.unit})</div>
+            <div className="text-white/90 text-sm">Average Rent ({rentData.unit})</div>
           </div>
           <div className="bg-white bg-opacity-20 rounded-lg p-4">
             <div className="text-2xl font-bold">
               {rentData.currency} {rentData.priceRange.min} - {rentData.priceRange.max}
             </div>
-            <div className="text-blue-100 text-sm">Price Range ({rentData.unit})</div>
+            <div className="text-white/90 text-sm">Price Range ({rentData.unit})</div>
           </div>
           <div className="bg-white bg-opacity-20 rounded-lg p-4">
             <div className="flex items-center gap-2">
               <TrendingUp className="w-5 h-5" />
               <div className="text-2xl font-bold">+{rentData.trendPercentage}%</div>
             </div>
-            <div className="text-blue-100 text-sm">Market Trend (YoY)</div>
+            <div className="text-white/90 text-sm">Market Trend (YoY)</div>
           </div>
         </div>
       </div>
@@ -247,8 +247,8 @@ const RentLocationContent: React.FC<RentLocationContentProps> = ({ location, bus
             <div
               key={property.id}
               className={`border rounded-xl p-4 transition-all duration-200 cursor-pointer hover:shadow-md ${selectedProperty === property.id
-                  ? 'border-blue-500 bg-blue-50'
-                  : 'border-gray-200 hover:border-gray-300'
+                  ? 'border-primary bg-primary-light'
+                  : 'border-card-border hover:border-primary/30'
                 }`}
               onClick={() => setSelectedProperty(selectedProperty === property.id ? null : property.id)}
             >
@@ -260,8 +260,8 @@ const RentLocationContent: React.FC<RentLocationContentProps> = ({ location, bus
                 />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between mb-2">
-                    <h5 className="font-semibold text-gray-900 truncate">{property.name}</h5>
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${getRentBadgeColor(property.rent)}`}>
+                    <h5 className="font-semibold text-foreground truncate text-base">{property.name}</h5>
+                    <span className={`badge px-2.5 py-1 rounded-full text-xs font-semibold ${getRentBadgeColor(property.rent)}`}>
                       RM {property.rent}/sq ft
                     </span>
                   </div>
@@ -270,18 +270,18 @@ const RentLocationContent: React.FC<RentLocationContentProps> = ({ location, bus
                       {[...Array(5)].map((_, i) => (
                         <Star
                           key={i}
-                          className={`w-3 h-3 ${i < Math.floor(property.rating)
-                              ? 'fill-yellow-400 text-yellow-400'
-                              : 'text-gray-300'
+                          className={`w-3.5 h-3.5 ${i < Math.floor(property.rating)
+                              ? 'fill-accent-yellow text-accent-yellow'
+                              : 'text-border'
                             }`}
                         />
                       ))}
                     </div>
-                    <span className="text-sm text-gray-600">{property.rating}</span>
-                    <span className="text-gray-300">•</span>
-                    <span className="text-sm text-gray-600">{property.type}</span>
+                    <span className="text-sm font-medium text-foreground">{property.rating}</span>
+                    <span className="text-muted-foreground">•</span>
+                    <span className="text-sm text-muted-foreground">{property.type}</span>
                   </div>
-                  <div className="flex items-center gap-1 text-sm text-gray-600 mb-2">
+                  <div className="flex items-center gap-1 text-sm text-muted-foreground mb-2">
                     <MapPin className="w-4 h-4" />
                     <span className="truncate">{property.address}</span>
                   </div>
@@ -295,7 +295,7 @@ const RentLocationContent: React.FC<RentLocationContentProps> = ({ location, bus
                         RM {calculateMonthlyRent(property.rent, property.size)}/month
                       </span>
                     </div>
-                    <div className="flex items-center gap-1 text-sm text-gray-600">
+                    <div className="flex items-center gap-1 text-sm text-muted-foreground">
                       <Clock className="w-4 h-4" />
                       {property.availability}
                     </div>
@@ -304,15 +304,15 @@ const RentLocationContent: React.FC<RentLocationContentProps> = ({ location, bus
               </div>
 
               {selectedProperty === property.id && (
-                <div className="mt-4 pt-4 border-t border-gray-200">
+                <div className="mt-4 pt-4 border-t border-card-border">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <h6 className="font-medium text-gray-900 mb-2">Amenities</h6>
+                      <h6 className="font-semibold text-foreground mb-2 text-sm">Amenities</h6>
                       <div className="flex flex-wrap gap-2">
                         {property.amenities.map((amenity, index) => (
                           <span
                             key={index}
-                            className="px-2 py-1 bg-gray-100 text-gray-700 rounded-full text-xs"
+                            className="px-2.5 py-1 bg-muted text-foreground rounded-full text-xs font-medium"
                           >
                             {amenity}
                           </span>
@@ -320,8 +320,8 @@ const RentLocationContent: React.FC<RentLocationContentProps> = ({ location, bus
                       </div>
                     </div>
                     <div>
-                      <h6 className="font-medium text-gray-900 mb-2">Contact Information</h6>
-                      <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <h6 className="font-semibold text-foreground mb-2 text-sm">Contact Information</h6>
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
                         <Users className="w-4 h-4" />
                         {property.contact}
                       </div>
@@ -350,8 +350,8 @@ const RentLocationContent: React.FC<RentLocationContentProps> = ({ location, bus
         </h4>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <h5 className="font-medium text-gray-900 mb-3">Rental Trends</h5>
-            <ul className="space-y-2 text-sm text-gray-600">
+            <h5 className="font-semibold text-foreground mb-3">Rental Trends</h5>
+            <ul className="space-y-2 text-sm text-muted-foreground">
               <li>• Prime locations (KLCC area) command 20-30% premium</li>
               <li>• Ground floor retail spaces are 15% more expensive</li>
               <li>• Flexible lease terms available for new businesses</li>
@@ -359,8 +359,8 @@ const RentLocationContent: React.FC<RentLocationContentProps> = ({ location, bus
             </ul>
           </div>
           <div>
-            <h5 className="font-medium text-gray-900 mb-3">Location Benefits</h5>
-            <ul className="space-y-2 text-sm text-gray-600">
+            <h5 className="font-semibold text-foreground mb-3">Location Benefits</h5>
+            <ul className="space-y-2 text-sm text-muted-foreground">
               <li>• High foot traffic from office workers and tourists</li>
               <li>• Excellent public transportation connectivity</li>
               <li>• Premium shopping and dining district</li>
