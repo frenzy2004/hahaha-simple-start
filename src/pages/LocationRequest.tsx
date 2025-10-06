@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MapPin, ChevronDown } from 'lucide-react';
-import WaveBackground from '../components/WaveBackground';
+import NeuralBackground from '../components/NeuralBackground';
+import { DottedSurface } from '../components/ui/dotted-surface';
 import { useGoogleMaps } from '../hooks/useGoogleMaps';
 
 interface LocationRequestProps {
@@ -82,10 +83,11 @@ const LocationRequest: React.FC<LocationRequestProps> = ({ onSubmit }) => {
   const isFormValid = location.trim() && businessType && businessScale;
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-8 py-16">
-      <WaveBackground />
+    <div className="min-h-screen flex items-center justify-center px-8 py-16 relative overflow-hidden">
+      <NeuralBackground />
+      <DottedSurface />
       
-      <div className="w-full max-w-7xl space-y-12 animate-fade-in">
+      <div className="w-full max-w-7xl space-y-12 animate-fade-in relative z-10">
         {/* Brand Header */}
         <div className="text-center space-y-6">
           <div className="flex items-center justify-center gap-4 mb-4">
