@@ -186,4 +186,14 @@
   .section-subtitle {
     @apply text-sm text-muted-foreground mb-3;
   }
+
+  /* Loading Skeleton */
+  .skeleton {
+    @apply bg-muted animate-pulse rounded;
+  }
+
+  /* Smooth Scroll */
+  * {
+    scroll-behavior: smooth;
+  }
 }

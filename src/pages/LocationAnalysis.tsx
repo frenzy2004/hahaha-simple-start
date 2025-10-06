@@ -146,7 +146,7 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
   };
 
   return (
-    <div className="h-screen bg-gray-100 flex flex-col">
+    <div className="h-screen bg-muted flex flex-col">
       {/* Tab Navigation */}
       <TabNavigation
         tabs={tabs}
@@ -203,7 +203,7 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
       <div className="flex-1 flex overflow-hidden">
         {/* Analysis Panel */}
         <div
-          className={`bg-white border-r border-gray-200 transition-all duration-300 ease-in-out overflow-hidden ${
+          className={`bg-card border-r border-border transition-all duration-300 ease-in-out overflow-hidden ${
             isPanelOpen
               ? 'w-full lg:w-1/2 xl:w-2/5'
               : 'w-0 lg:w-1/2 xl:w-2/5'
@@ -211,7 +211,7 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
         >
           <div className="h-full flex flex-col">
             {/* Panel Header */}
-            <div className="p-4 border-b border-gray-200">
+            <div className="p-4 border-b border-border">
               <div className="flex items-center justify-between lg:justify-start gap-4">
                 <button
                   onClick={() => setIsPanelOpen(false)}

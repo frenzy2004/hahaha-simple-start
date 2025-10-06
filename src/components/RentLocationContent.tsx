@@ -171,36 +171,36 @@ const RentLocationContent: React.FC<RentLocationContentProps> = ({ location, bus
   return (
     <div className="space-y-6">
       {/* Market Overview */}
-      <div className="bg-gradient-to-r from-primary to-primary-hover text-white rounded-xl p-6">
+      <div className="bg-gradient-to-r from-primary to-secondary text-white rounded-xl p-6 shadow-lg">
         <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
           <Building className="w-6 h-6" />
           Rental Market Overview
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-white bg-opacity-20 rounded-lg p-4">
+          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
             <div className="text-2xl font-bold">
               {rentData.currency} {rentData.averageRent}
             </div>
-            <div className="text-white/90 text-sm">Average Rent ({rentData.unit})</div>
+            <div className="text-white/80 text-sm">Average Rent ({rentData.unit})</div>
           </div>
-          <div className="bg-white bg-opacity-20 rounded-lg p-4">
+          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
             <div className="text-2xl font-bold">
               {rentData.currency} {rentData.priceRange.min} - {rentData.priceRange.max}
             </div>
-            <div className="text-white/90 text-sm">Price Range ({rentData.unit})</div>
+            <div className="text-white/80 text-sm">Price Range ({rentData.unit})</div>
           </div>
-          <div className="bg-white bg-opacity-20 rounded-lg p-4">
+          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
             <div className="flex items-center gap-2">
               <TrendingUp className="w-5 h-5" />
               <div className="text-2xl font-bold">+{rentData.trendPercentage}%</div>
             </div>
-            <div className="text-white/90 text-sm">Market Trend (YoY)</div>
+            <div className="text-white/80 text-sm">Market Trend (YoY)</div>
           </div>
         </div>
       </div>
 
       {/* Rent Calculator */}
-      <div className="bg-background rounded-xl shadow-md p-6 border border-border">
+      <div className="bg-card rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-border animate-fade-in">
         <h4 className="text-lg font-semibold mb-4 flex items-center gap-2 text-foreground">
           <Calculator className="w-5 h-5 text-primary" />
           Quick Rent Calculator
@@ -237,7 +237,7 @@ const RentLocationContent: React.FC<RentLocationContentProps> = ({ location, bus
       </div>
 
       {/* Available Properties */}
-      <div className="bg-background rounded-xl shadow-md p-6 border border-border">
+      <div className="bg-card rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-border animate-fade-in">
         <h4 className="text-lg font-semibold mb-4 flex items-center gap-2 text-foreground">
           <MapPin className="w-5 h-5 text-primary" />
           Available Properties Near {location}
@@ -268,10 +268,10 @@ const RentLocationContent: React.FC<RentLocationContentProps> = ({ location, bus
                   <div className="flex items-center gap-1 mb-2">
                     <div className="flex items-center gap-1">
                       {[...Array(5)].map((_, i) => (
-                        <Star
+                         <Star
                           key={i}
                           className={`w-3.5 h-3.5 ${i < Math.floor(property.rating)
-                              ? 'fill-accent-yellow text-accent-yellow'
+                              ? 'fill-warning text-warning'
                               : 'text-border'
                             }`}
                         />
@@ -343,7 +343,7 @@ const RentLocationContent: React.FC<RentLocationContentProps> = ({ location, bus
       </div>
 
       {/* Market Insights */}
-      <div className="bg-background rounded-xl shadow-md p-6 border border-border">
+      <div className="bg-card rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-border animate-fade-in">
         <h4 className="text-lg font-semibold mb-4 flex items-center gap-2 text-foreground">
           <Info className="w-5 h-5 text-primary" />
           Market Insights for {businessType}

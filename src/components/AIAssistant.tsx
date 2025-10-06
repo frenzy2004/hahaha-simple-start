@@ -82,12 +82,12 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ onClose }) => {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl h-[600px] flex flex-col">
         {/* Header */}
-        <div className="bg-gradient-to-r from-primary to-primary-hover text-white p-4 rounded-t-xl flex items-center justify-between">
+        <div className="bg-gradient-to-r from-primary to-secondary text-white p-4 rounded-t-xl flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Bot className="w-6 h-6" />
             <div>
               <h2 className="text-lg font-semibold">AI Location Assistant</h2>
-              <p className="text-white/90 text-sm">Ask me about your location analysis</p>
+              <p className="text-white/80 text-sm">Ask me about your location analysis</p>
             </div>
           </div>
           <button

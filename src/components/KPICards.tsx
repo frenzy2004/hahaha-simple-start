@@ -58,10 +58,10 @@ const KPICards: React.FC<KPICardsProps> = ({ kpis }) => {
       value: kpis.rentSensitivity.toString(),
       unit: '/100',
       icon: DollarSign,
-      color: 'bg-primary-dark',
-      bgColor: 'bg-accent-blue',
-      textColor: 'text-primary-dark',
-      borderColor: 'border-primary/20',
+      color: 'bg-accent',
+      bgColor: 'bg-accent-light',
+      textColor: 'text-accent',
+      borderColor: 'border-accent/20',
     },
 
   ];

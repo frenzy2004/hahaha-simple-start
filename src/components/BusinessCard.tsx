@@ -15,7 +15,7 @@ const BusinessCard: React.FC<BusinessCardProps> = ({ business, onClick }) => {
 
     for (let i = 0; i < fullStars; i++) {
       stars.push(
-        <Star key={i} className="w-4 h-4 fill-accent-yellow text-accent-yellow" />
+        <Star key={i} className="w-4 h-4 fill-warning text-warning" />
       );
     }
 
@@ -24,7 +24,7 @@ const BusinessCard: React.FC<BusinessCardProps> = ({ business, onClick }) => {
         <div key="half" className="relative">
           <Star className="w-4 h-4 text-border" />
           <div className="absolute inset-0 overflow-hidden w-1/2">
-            <Star className="w-4 h-4 fill-accent-yellow text-accent-yellow" />
+            <Star className="w-4 h-4 fill-warning text-warning" />
           </div>
         </div>
       );
