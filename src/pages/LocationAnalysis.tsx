@@ -253,8 +253,8 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
         <div
           className={`bg-card border-r border-border transition-all duration-300 ease-in-out overflow-hidden ${
             isPanelOpen
-              ? 'w-full lg:w-1/2 xl:w-3/5'
-              : 'w-0 lg:w-1/2 xl:w-3/5'
+              ? 'w-full lg:w-1/2'
+              : 'w-0 lg:w-1/2'
           }`}
         >
           <div className="h-full flex flex-col">
@@ -336,11 +336,7 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
         </div>
 
         {/* Map */}
-        <div
-          className={`flex-1 transition-all duration-300 ease-in-out ${
-            isPanelOpen ? 'lg:flex-1' : 'flex-1'
-          }`}
-        >
+        <div className="flex-1 transition-all duration-300 ease-in-out">
           {isGeocoding ? (
             <div className="w-full h-full bg-muted flex items-center justify-center">
               <div className="text-center">
