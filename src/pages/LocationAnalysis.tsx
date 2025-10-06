@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, MessageCircle, Download, ArrowLeft } from 'lucide-react';
+import { Menu, X, Download, ArrowLeft } from 'lucide-react';
 import TabNavigation from '../components/TabNavigation';
 import GoogleMap from '../components/GoogleMap';
 import SeasonalDemandChart from '../components/charts/SeasonalDemandChart';
@@ -42,9 +42,8 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
   onNewComparison,
 }) => {
   const [isPanelOpen, setIsPanelOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState<'overview' | 'businesses' | 'rent'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'businesses' | 'rent' | 'ai-insight' | 'urban-development'>('overview');
   const [selectedBusiness, setSelectedBusiness] = useState<Business | null>(null);
-  const [showAIAssistant, setShowAIAssistant] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
   const [actualLocation, setActualLocation] = useState<Location | null>(null);
   const [isGeocoding, setIsGeocoding] = useState(true);
@@ -188,13 +187,62 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
             <Download className="w-4 h-4" />
             <span className="hidden sm:inline">{isDownloading ? 'Generating...' : 'Download PDF'}</span>
           </button>
+        </div>
+      </div>
+
+      {/* Sub-tabs */}
+      <div className="bg-background border-b border-border px-6 py-2">
+        <div className="text-xs text-muted-foreground mb-2">All Tabs</div>
+        <div className="flex gap-2 overflow-x-auto">
           <button
-            onClick={() => setShowAIAssistant(true)}
-            className="btn-primary"
-            aria-label="Open AI Assistant"
+            onClick={() => setActiveTab('overview')}
+            className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+              activeTab === 'overview'
+                ? 'bg-primary text-primary-foreground shadow-sm'
+                : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+            }`}
           >
-            <MessageCircle className="w-4 h-4" />
-            <span className="hidden sm:inline">Ask AI</span>
+            Overview
+          </button>
+          <button
+            onClick={() => setActiveTab('businesses')}
+            className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+              activeTab === 'businesses'
+                ? 'bg-primary text-primary-foreground shadow-sm'
+                : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+            }`}
+          >
+            Competitor nearby
+          </button>
+          <button
+            onClick={() => setActiveTab('rent')}
+            className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+              activeTab === 'rent'
+                ? 'bg-primary text-primary-foreground shadow-sm'
+                : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+            }`}
+          >
+            Rent location
+          </button>
+          <button
+            onClick={() => setActiveTab('ai-insight')}
+            className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+              activeTab === 'ai-insight'
+                ? 'bg-primary text-primary-foreground shadow-sm'
+                : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+            }`}
+          >
+            AI Insight
+          </button>
+          <button
+            onClick={() => setActiveTab('urban-development')}
+            className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+              activeTab === 'urban-development'
+                ? 'bg-primary text-primary-foreground shadow-sm'
+                : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+            }`}
+          >
+            Urban Development
           </button>
         </div>
       </div>
@@ -224,40 +272,6 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
                   <p className="text-sm text-muted-foreground">{businessType} in {location}</p>
                 </div>
               </div>
-
-              {/* Tabs */}
-              <div className="flex mt-4 bg-muted rounded-lg p-1 overflow-x-auto gap-1">
-                <button
-                  onClick={() => setActiveTab('overview')}
-                  className={`flex-1 px-4 py-2.5 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
-                    activeTab === 'overview'
-                      ? 'bg-background text-primary shadow-sm'
-                      : 'text-muted-foreground hover:text-foreground hover:bg-background/50'
-                  }`}
-                >
-                  Overview
-                </button>
-                <button
-                  onClick={() => setActiveTab('businesses')}
-                  className={`flex-1 px-4 py-2.5 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
-                    activeTab === 'businesses'
-                      ? 'bg-background text-primary shadow-sm'
-                      : 'text-muted-foreground hover:text-foreground hover:bg-background/50'
-                  }`}
-                >
-                  Competitor Nearby
-                </button>
-                <button
-                  onClick={() => setActiveTab('rent')}
-                  className={`flex-1 px-4 py-2.5 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
-                    activeTab === 'rent'
-                      ? 'bg-background text-primary shadow-sm'
-                      : 'text-muted-foreground hover:text-foreground hover:bg-background/50'
-                  }`}
-                >
-                  Rent Location
-                </button>
-              </div>
             </div>
 
             {/* Panel Content */}
@@ -285,9 +299,36 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
                     />
                   ))}
                 </div>
-              ) : (
+              ) : activeTab === 'rent' ? (
                 <div className="p-6">
                   <RentLocationContent location={location} businessType={businessType} />
+                </div>
+              ) : activeTab === 'ai-insight' ? (
+                <div className="h-full">
+                  <AIAssistant onClose={() => setActiveTab('overview')} />
+                </div>
+              ) : (
+                <div className="p-6">
+                  <div className="space-y-6">
+                    <div>
+                      <h3 className="text-lg font-semibold text-foreground mb-2">Urban Development Analysis</h3>
+                      <p className="text-muted-foreground">Infrastructure and development insights for this location.</p>
+                    </div>
+                    <div className="grid gap-4">
+                      <div className="p-4 bg-muted rounded-lg">
+                        <h4 className="font-medium text-foreground mb-2">Public Transportation</h4>
+                        <p className="text-sm text-muted-foreground">Analysis of nearby transit options and accessibility.</p>
+                      </div>
+                      <div className="p-4 bg-muted rounded-lg">
+                        <h4 className="font-medium text-foreground mb-2">Future Developments</h4>
+                        <p className="text-sm text-muted-foreground">Planned infrastructure and construction projects in the area.</p>
+                      </div>
+                      <div className="p-4 bg-muted rounded-lg">
+                        <h4 className="font-medium text-foreground mb-2">Amenities</h4>
+                        <p className="text-sm text-muted-foreground">Nearby facilities, parks, schools, and shopping centers.</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
@@ -337,8 +378,6 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
           onRecenter={handleRecenterMap}
         />
       )}
-
-      {showAIAssistant && <AIAssistant onClose={() => setShowAIAssistant(false)} />}
     </div>
   );
 };
