@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MapPin, ChevronDown } from 'lucide-react';
-import NeuralNetworkHero from '../components/ui/neural-network-hero';
+import WaveBackground from '../components/WaveBackground';
 import { useGoogleMaps } from '../hooks/useGoogleMaps';
 
 interface LocationRequestProps {
@@ -82,23 +82,29 @@ const LocationRequest: React.FC<LocationRequestProps> = ({ onSubmit }) => {
   const isFormValid = location.trim() && businessType && businessScale;
 
   return (
-    <NeuralNetworkHero
-      title="Finding the best location for your business"
-      description="Analyze potential locations with AI-powered insights. Get detailed reports on demographics, competition, and success predictions."
-      badgeText="AI Location Analysis"
-      badgeLabel="Beta"
-    >
-        {/* Brand Header - Minimalist */}
-        <div className="flex items-center justify-start gap-3 mb-8">
-          <MapPin className="w-8 h-8 text-white/90" />
-          <h2 className="text-2xl font-extralight tracking-tight text-white">
-            BizLocate
-          </h2>
+    <div className="min-h-screen flex items-center justify-center px-8 py-16">
+      <WaveBackground />
+      
+      <div className="w-full max-w-7xl space-y-12 animate-fade-in">
+        {/* Brand Header */}
+        <div className="text-center space-y-6">
+          <div className="flex items-center justify-center gap-4 mb-4">
+            <div className="relative">
+              <MapPin className="w-16 h-16 text-secondary drop-shadow-lg" fill="currentColor" />
+              <div className="absolute inset-0 blur-xl bg-secondary/30"></div>
+            </div>
+            <h1 className="text-7xl font-bold text-white drop-shadow-2xl">
+              BizLocate
+            </h1>
+          </div>
+          <p className="text-2xl text-white/90 font-medium drop-shadow-lg">
+            Finding the best location for your business
+          </p>
         </div>
 
         {/* Horizontal Form */}
-        <form onSubmit={handleSubmit} className="w-full max-w-6xl">
-          <div className="flex items-start gap-3 w-full">
+        <form onSubmit={handleSubmit} className="w-full">
+          <div className="flex items-start gap-4 max-w-6xl mx-auto">
             {/* Location Input with Suggestions */}
             <div className="flex-1 relative">
               <input
@@ -108,27 +114,27 @@ const LocationRequest: React.FC<LocationRequestProps> = ({ onSubmit }) => {
                 onChange={(e) => handleLocationChange(e.target.value)}
                 onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
                 placeholder="e.g., near LRT KLCC, Malaysia"
-                className="w-full h-12 px-10 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-white/40 focus:border-transparent transition-all text-sm"
+                className="w-full h-14 px-12 bg-white/95 backdrop-blur-sm border-2 border-foreground/20 rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all shadow-lg text-base"
                 required
               />
-              <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/60 pointer-events-none" />
+              <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none" />
               
               {showSuggestions && suggestions.length > 0 && (
-                <div className="absolute z-50 w-full mt-2 bg-white/95 backdrop-blur-md border border-white/20 rounded-xl shadow-2xl max-h-60 overflow-y-auto">
+                <div className="absolute z-50 w-full mt-2 bg-white border-2 border-foreground/20 rounded-lg shadow-2xl max-h-80 overflow-y-auto">
                   {suggestions.map((suggestion) => (
                     <button
                       key={suggestion.place_id}
                       type="button"
                       onClick={() => handleSuggestionClick(suggestion)}
-                      className="w-full text-left px-4 py-2.5 hover:bg-foreground/5 transition-colors border-b border-foreground/10 last:border-b-0"
+                      className="w-full text-left px-4 py-3 hover:bg-primary-light transition-colors border-b border-border last:border-b-0"
                     >
                       <div className="flex items-start gap-2">
-                        <MapPin className="w-3.5 h-3.5 text-white/60 mt-0.5 flex-shrink-0" />
+                        <MapPin className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
                         <div>
-                          <div className="font-medium text-foreground text-sm">
+                          <div className="font-medium text-foreground">
                             {suggestion.structured_formatting.main_text}
                           </div>
-                          <div className="text-xs text-muted-foreground">
+                          <div className="text-sm text-muted-foreground">
                             {suggestion.structured_formatting.secondary_text}
                           </div>
                         </div>
@@ -145,7 +151,7 @@ const LocationRequest: React.FC<LocationRequestProps> = ({ onSubmit }) => {
                 id="business-type"
                 value={businessType}
                 onChange={(e) => setBusinessType(e.target.value)}
-                className="h-12 px-5 pr-10 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-white/40 focus:border-transparent transition-all min-w-[200px] appearance-none text-sm"
+                className="h-14 px-6 pr-10 bg-white/95 backdrop-blur-sm border-2 border-foreground/20 rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all shadow-lg min-w-[220px] appearance-none text-base"
                 required
               >
                 <option value="">Select business type</option>
@@ -155,7 +161,7 @@ const LocationRequest: React.FC<LocationRequestProps> = ({ onSubmit }) => {
                   </option>
                 ))}
               </select>
-              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/60 pointer-events-none" />
+              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none" />
             </div>
 
             {/* Business Scale Dropdown */}
@@ -164,7 +170,7 @@ const LocationRequest: React.FC<LocationRequestProps> = ({ onSubmit }) => {
                 id="business-scale"
                 value={businessScale}
                 onChange={(e) => setBusinessScale(e.target.value)}
-                className="h-12 px-5 pr-10 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-white/40 focus:border-transparent transition-all min-w-[200px] appearance-none text-sm"
+                className="h-14 px-6 pr-10 bg-white/95 backdrop-blur-sm border-2 border-foreground/20 rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all shadow-lg min-w-[220px] appearance-none text-base"
                 required
               >
                 <option value="">Select business scale</option>
@@ -174,20 +180,21 @@ const LocationRequest: React.FC<LocationRequestProps> = ({ onSubmit }) => {
                   </option>
                 ))}
               </select>
-              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/60 pointer-events-none" />
+              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none" />
             </div>
 
             {/* Submit Button */}
             <button
               type="submit"
               disabled={!isFormValid}
-              className="h-12 px-6 bg-white/20 hover:bg-white/30 text-white font-light rounded-xl transition-all border border-white/30 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white/20 whitespace-nowrap text-sm backdrop-blur-md"
+              className="h-14 px-8 bg-primary hover:bg-primary-hover text-white font-semibold rounded-lg transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-primary whitespace-nowrap text-base"
             >
-              {isFormValid ? 'Analyze' : 'Fill all fields'}
+              {isFormValid ? 'Analyze Location' : 'Fill all fields'}
             </button>
           </div>
         </form>
-    </NeuralNetworkHero>
+      </div>
+    </div>
   );
 };
 
