@@ -159,15 +159,15 @@ function ShaderPlane() {
   });
 
   return (
-    <mesh ref={meshRef} position={[0, 0, 0]}>
-      <planeGeometry args={[12, 12]} />
+    <mesh ref={meshRef} position={[0, -0.75, -0.5]}>
+      <planeGeometry args={[4, 4]} />
       <cPPNShaderMaterial ref={materialRef} side={THREE.DoubleSide} />
     </mesh>
   );
 }
 
 const NeuralBackground = () => {
-  const camera = useMemo(() => ({ position: [0, 0, 2.2] as [number, number, number], fov: 75, near: 0.1, far: 1000 }), []);
+  const camera = useMemo(() => ({ position: [0, 0, 1] as [number, number, number], fov: 75, near: 0.1, far: 1000 }), []);
   
   return (
     <div className="fixed inset-0 -z-10">
