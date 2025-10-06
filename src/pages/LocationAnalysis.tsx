@@ -253,8 +253,8 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
         <div
           className={`bg-card border-r border-border transition-all duration-300 ease-in-out overflow-hidden ${
             isPanelOpen
-              ? 'w-full lg:w-1/2 xl:w-2/5'
-              : 'w-0 lg:w-1/2 xl:w-2/5'
+              ? 'w-full lg:w-1/2 xl:w-3/5'
+              : 'w-0 lg:w-1/2 xl:w-3/5'
           }`}
         >
           <div className="h-full flex flex-col">
