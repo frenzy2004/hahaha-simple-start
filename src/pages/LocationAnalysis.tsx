@@ -161,17 +161,17 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
         <div className="flex items-center gap-4">
           <button
             onClick={onBack}
-            className="p-2.5 hover:bg-muted rounded-lg transition-all duration-200"
+            className="btn-icon btn-ghost"
             aria-label="Go back to location request"
           >
-            <ArrowLeft className="w-5 h-5 text-foreground" />
+            <ArrowLeft className="w-5 h-5" />
           </button>
           <button
             onClick={() => setIsPanelOpen(!isPanelOpen)}
-            className="p-2.5 hover:bg-muted rounded-lg transition-all duration-200 lg:hidden"
+            className="btn-icon btn-ghost lg:hidden"
             aria-label={isPanelOpen ? 'Close analysis panel' : 'Open analysis panel'}
           >
-            {isPanelOpen ? <X className="w-5 h-5 text-foreground" /> : <Menu className="w-5 h-5 text-foreground" />}
+            {isPanelOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
           <div className="hidden lg:block">
             <h1 className="text-xl font-semibold text-foreground">Location Analysis</h1>
@@ -183,14 +183,14 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
           <button
             onClick={downloadPDF}
             disabled={isDownloading}
-            className="flex items-center gap-2 px-4 py-2.5 bg-success text-white rounded-lg hover:bg-success-hover transition-all duration-200 disabled:opacity-50 font-medium shadow-sm hover:shadow"
+            className="btn-success"
           >
             <Download className="w-4 h-4" />
             <span className="hidden sm:inline">{isDownloading ? 'Generating...' : 'Download PDF'}</span>
           </button>
           <button
             onClick={() => setShowAIAssistant(true)}
-            className="flex items-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg hover:bg-primary-hover transition-all duration-200 font-medium shadow-sm hover:shadow"
+            className="btn-primary"
             aria-label="Open AI Assistant"
           >
             <MessageCircle className="w-4 h-4" />
@@ -215,7 +215,7 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
               <div className="flex items-center justify-between lg:justify-start gap-4">
                 <button
                   onClick={() => setIsPanelOpen(false)}
-                  className="p-2 hover:bg-gray-100 rounded-lg transition-colors lg:hidden"
+                  className="btn-icon btn-ghost lg:hidden"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -226,33 +226,33 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
               </div>
 
               {/* Tabs */}
-              <div className="flex mt-4 bg-gray-100 rounded-lg p-1 overflow-x-auto">
+              <div className="flex mt-4 bg-muted rounded-lg p-1 overflow-x-auto gap-1">
                 <button
                   onClick={() => setActiveTab('overview')}
-                  className={`flex-1 px-3 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap ${
+                  className={`flex-1 px-4 py-2.5 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
                     activeTab === 'overview'
-                      ? 'bg-white text-blue-600 shadow-sm'
-                      : 'text-gray-600 hover:text-gray-900'
+                      ? 'bg-background text-primary shadow-sm'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-background/50'
                   }`}
                 >
                   Overview
                 </button>
                 <button
                   onClick={() => setActiveTab('businesses')}
-                  className={`flex-1 px-3 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap ${
+                  className={`flex-1 px-4 py-2.5 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
                     activeTab === 'businesses'
-                      ? 'bg-white text-blue-600 shadow-sm'
-                      : 'text-gray-600 hover:text-gray-900'
+                      ? 'bg-background text-primary shadow-sm'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-background/50'
                   }`}
                 >
                   Competitor Nearby
                 </button>
                 <button
                   onClick={() => setActiveTab('rent')}
-                  className={`flex-1 px-3 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap ${
+                  className={`flex-1 px-4 py-2.5 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
                     activeTab === 'rent'
-                      ? 'bg-white text-blue-600 shadow-sm'
-                      : 'text-gray-600 hover:text-gray-900'
+                      ? 'bg-background text-primary shadow-sm'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-background/50'
                   }`}
                 >
                   Rent Location
@@ -274,7 +274,7 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
                 </div>
               ) : activeTab === 'businesses' ? (
                 <div className="p-6 space-y-4">
-                  <div className="text-sm text-gray-600 mb-4">
+                  <div className="text-sm text-muted-foreground mb-4">
                     {businesses.length} businesses found within 1km radius
                   </div>
                   {businesses.map((business) => (
@@ -322,7 +322,7 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
       {!isPanelOpen && (
         <button
           onClick={() => setIsPanelOpen(true)}
-          className="fixed top-32 left-4 z-10 p-3 bg-white rounded-full shadow-lg hover:shadow-xl transition-all lg:hidden"
+          className="fixed top-32 left-4 z-10 p-3 bg-background rounded-full shadow-lg hover:shadow-xl transition-all lg:hidden btn-icon"
           aria-label="Open analysis panel"
         >
           <Menu className="w-6 h-6" />

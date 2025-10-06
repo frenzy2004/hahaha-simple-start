@@ -55,7 +55,8 @@ const BusinessDetail: React.FC<BusinessDetailProps> = ({ business, onClose, onRe
           />
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 bg-black bg-opacity-50 rounded-full text-white hover:bg-opacity-70 transition-colors"
+            className="absolute top-4 right-4 p-2.5 bg-black/50 hover:bg-black/70 rounded-lg text-white transition-colors"
+            aria-label="Close business details"
           >
             <X className="w-5 h-5" />
           </button>
@@ -113,13 +114,14 @@ const BusinessDetail: React.FC<BusinessDetailProps> = ({ business, onClose, onRe
           <div className="flex gap-3">
             <button
               onClick={() => onRecenter(business)}
-              className="flex-1 bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+              className="btn-primary flex-1"
             >
+              <MapPin className="w-4 h-4" />
               Show on Map
             </button>
             <button
               onClick={onClose}
-              className="flex-1 bg-gray-100 text-gray-700 py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors font-medium"
+              className="btn-secondary flex-1"
             >
               Close
             </button>

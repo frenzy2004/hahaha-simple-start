@@ -20,6 +20,15 @@ export default {
           DEFAULT: 'hsl(var(--success))',
           hover: 'hsl(var(--success-hover))',
         },
+        destructive: {
+          DEFAULT: 'hsl(var(--destructive))',
+          hover: 'hsl(var(--destructive-hover))',
+        },
+        input: {
+          border: 'hsl(var(--input-border))',
+          focus: 'hsl(var(--input-focus))',
+          bg: 'hsl(var(--input-bg))',
+        },
       },
     },
   },

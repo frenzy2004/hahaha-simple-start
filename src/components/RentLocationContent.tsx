@@ -171,7 +171,7 @@ const RentLocationContent: React.FC<RentLocationContentProps> = ({ location, bus
   return (
     <div className="space-y-6">
       {/* Market Overview */}
-      <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl p-6">
+      <div className="bg-gradient-to-r from-primary to-primary-hover text-white rounded-xl p-6">
         <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
           <Building className="w-6 h-6" />
           Rental Market Overview
@@ -200,46 +200,46 @@ const RentLocationContent: React.FC<RentLocationContentProps> = ({ location, bus
       </div>
 
       {/* Rent Calculator */}
-      <div className="bg-white rounded-xl shadow-md p-6">
-        <h4 className="text-lg font-semibold mb-4 flex items-center gap-2">
-          <Calculator className="w-5 h-5 text-blue-600" />
+      <div className="bg-background rounded-xl shadow-md p-6 border border-border">
+        <h4 className="text-lg font-semibold mb-4 flex items-center gap-2 text-foreground">
+          <Calculator className="w-5 h-5 text-primary" />
           Quick Rent Calculator
         </h4>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="label">
               Space Size (sq ft)
             </label>
             <input
               type="number"
               defaultValue="1000"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="input"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="label">
               Rent per sq ft (RM)
             </label>
             <input
               type="number"
               defaultValue={rentData.averageRent}
               step="0.50"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="input"
             />
           </div>
         </div>
-        <div className="mt-4 p-4 bg-blue-50 rounded-lg">
-          <div className="text-sm text-blue-800 mb-1">Estimated Monthly Rent</div>
-          <div className="text-2xl font-bold text-blue-900">
+        <div className="mt-4 p-4 bg-primary-light rounded-lg border border-primary/20">
+          <div className="text-sm text-muted-foreground mb-1">Estimated Monthly Rent</div>
+          <div className="text-2xl font-bold text-foreground">
             RM {calculateMonthlyRent(rentData.averageRent, 1000)}
           </div>
         </div>
       </div>
 
       {/* Available Properties */}
-      <div className="bg-white rounded-xl shadow-md p-6">
-        <h4 className="text-lg font-semibold mb-4 flex items-center gap-2">
-          <MapPin className="w-5 h-5 text-blue-600" />
+      <div className="bg-background rounded-xl shadow-md p-6 border border-border">
+        <h4 className="text-lg font-semibold mb-4 flex items-center gap-2 text-foreground">
+          <MapPin className="w-5 h-5 text-primary" />
           Available Properties Near {location}
         </h4>
         <div className="space-y-4">
@@ -328,10 +328,10 @@ const RentLocationContent: React.FC<RentLocationContentProps> = ({ location, bus
                     </div>
                   </div>
                   <div className="mt-4 flex gap-3">
-                    <button className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium">
+                    <button className="flex-1 btn-primary text-sm">
                       Contact Owner
                     </button>
-                    <button className="flex-1 bg-gray-100 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-200 transition-colors text-sm font-medium">
+                    <button className="flex-1 btn-secondary text-sm">
                       Schedule Visit
                     </button>
                   </div>
@@ -343,9 +343,9 @@ const RentLocationContent: React.FC<RentLocationContentProps> = ({ location, bus
       </div>
 
       {/* Market Insights */}
-      <div className="bg-white rounded-xl shadow-md p-6">
-        <h4 className="text-lg font-semibold mb-4 flex items-center gap-2">
-          <Info className="w-5 h-5 text-blue-600" />
+      <div className="bg-background rounded-xl shadow-md p-6 border border-border">
+        <h4 className="text-lg font-semibold mb-4 flex items-center gap-2 text-foreground">
+          <Info className="w-5 h-5 text-primary" />
           Market Insights for {businessType}
         </h4>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

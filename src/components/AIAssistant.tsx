@@ -82,7 +82,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ onClose }) => {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl h-[600px] flex flex-col">
         {/* Header */}
-        <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-4 rounded-t-xl flex items-center justify-between">
+        <div className="bg-gradient-to-r from-primary to-primary-hover text-white p-4 rounded-t-xl flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Bot className="w-6 h-6" />
             <div>
@@ -92,7 +92,8 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ onClose }) => {
           </div>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-black hover:bg-opacity-20 rounded-lg transition-colors"
+            className="btn-icon p-2 hover:bg-white/20 rounded-lg transition-colors"
+            aria-label="Close AI Assistant"
           >
             <X className="w-5 h-5" />
           </button>
@@ -110,8 +111,8 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ onClose }) => {
               <div
                 className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
                   message.isUser
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-200 text-gray-600'
+                    ? 'bg-primary text-white'
+                    : 'bg-muted text-muted-foreground'
                 }`}
               >
                 {message.isUser ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
@@ -119,14 +120,14 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ onClose }) => {
               <div
                 className={`max-w-xs lg:max-w-md px-4 py-2 rounded-2xl ${
                   message.isUser
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-100 text-gray-800'
+                    ? 'bg-primary text-white'
+                    : 'bg-muted text-foreground'
                 }`}
               >
                 <p className="text-sm">{message.text}</p>
                 <p
                   className={`text-xs mt-1 ${
-                    message.isUser ? 'text-blue-200' : 'text-gray-500'
+                    message.isUser ? 'text-blue-100' : 'text-muted-foreground'
                   }`}
                 >
                   {message.timestamp.toLocaleTimeString([], {
@@ -140,10 +141,10 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ onClose }) => {
 
           {isTyping && (
             <div className="flex gap-3">
-              <div className="w-8 h-8 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-full bg-muted text-muted-foreground flex items-center justify-center">
                 <Bot className="w-4 h-4" />
               </div>
-              <div className="bg-gray-100 px-4 py-2 rounded-2xl">
+              <div className="bg-muted px-4 py-2 rounded-2xl">
                 <div className="flex gap-1">
                   <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
                   <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
@@ -158,13 +159,13 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ onClose }) => {
         {/* Suggestions */}
         {messages.length === 1 && (
           <div className="px-4 pb-4">
-            <p className="text-sm text-gray-600 mb-3">Try asking about:</p>
+            <p className="text-sm text-muted-foreground mb-3">Try asking about:</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {chatSuggestions.slice(0, 4).map((suggestion, index) => (
                 <button
                   key={index}
                   onClick={() => handleSendMessage(suggestion)}
-                  className="text-left p-2 text-sm bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 transition-colors"
+                  className="text-left px-4 py-2.5 bg-muted text-foreground rounded-lg hover:bg-muted-foreground/10 transition-all duration-200 text-sm border border-border"
                 >
                   {suggestion}
                 </button>
@@ -174,7 +175,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ onClose }) => {
         )}
 
         {/* Input */}
-        <div className="border-t border-gray-200 p-4">
+        <div className="border-t border-border p-4 bg-background">
           <div className="flex gap-2">
             <input
               type="text"
@@ -182,13 +183,14 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ onClose }) => {
               onChange={(e) => setInputValue(e.target.value)}
               onKeyPress={handleKeyPress}
               placeholder="Ask me anything about this location..."
-              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="input flex-1"
               disabled={isTyping}
             />
             <button
               onClick={() => handleSendMessage()}
               disabled={!inputValue.trim() || isTyping}
-              className="p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+              className="btn-primary px-6"
+              aria-label="Send message"
             >
               <Send className="w-5 h-5" />
             </button>
