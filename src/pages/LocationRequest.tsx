@@ -1,48 +1,38 @@
-import React, { useState, useRef, useEffect } from "react";
-import { MapPin, ChevronDown } from "lucide-react";
-import { useGoogleMaps } from "../hooks/useGoogleMaps";
-
-/// <reference types="google.maps" />
+import React, { useState, useRef, useEffect } from 'react';
+import { MapPin, ChevronDown } from 'lucide-react';
+import WaveBackground from '../components/WaveBackground';
+import { useGoogleMaps } from '../hooks/useGoogleMaps';
 
 interface LocationRequestProps {
-  onSubmit: (location: string, businessType: string, businessScale: string) => void;
+  onSubmit: (location: string, businessType: string) => void;
 }
 
 const LocationRequest: React.FC<LocationRequestProps> = ({ onSubmit }) => {
-  const [location, setLocation] = useState("");
-  const [businessType, setBusinessType] = useState("");
-  const [businessScale, setBusinessScale] = useState("");
-  const [typeOpen, setTypeOpen] = useState(false);
-  const [scaleOpen, setScaleOpen] = useState(false);
-  const [suggestions, setSuggestions] = useState<
-    google.maps.places.AutocompletePrediction[]
-  >([]);
+  const [location, setLocation] = useState('');
+  const [businessType, setBusinessType] = useState('');
+  const [businessScale, setBusinessScale] = useState('');
+  const [suggestions, setSuggestions] = useState<any[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
-
-  const autocompleteService =
-    useRef<google.maps.places.AutocompleteService | null>(null);
+  const autocompleteService = useRef<any | null>(null);
   const { isLoaded } = useGoogleMaps();
 
   useEffect(() => {
-    if (isLoaded && typeof window !== "undefined" && (window as any).google) {
-      autocompleteService.current =
-        new google.maps.places.AutocompleteService();
+    if (isLoaded && window.google) {
+      autocompleteService.current = new (window as any).google.maps.places.AutocompleteService();
     }
   }, [isLoaded]);
 
   const handleLocationChange = (value: string) => {
     setLocation(value);
+    
     if (value.length > 2 && autocompleteService.current) {
       autocompleteService.current.getPlacePredictions(
-        { input: value, types: ["establishment", "geocode"] },
-        (
-          predictions: google.maps.places.AutocompletePrediction[] | null,
-          status: google.maps.places.PlacesServiceStatus
-        ) => {
-          if (
-            status === google.maps.places.PlacesServiceStatus.OK &&
-            predictions
-          ) {
+        {
+          input: value,
+          types: ['establishment', 'geocode']
+        },
+        (predictions: any, status: any) => {
+          if (status === (window as any).google.maps.places.PlacesServiceStatus.OK && predictions) {
             setSuggestions(predictions.slice(0, 5));
             setShowSuggestions(true);
           } else {
@@ -57,202 +47,152 @@ const LocationRequest: React.FC<LocationRequestProps> = ({ onSubmit }) => {
     }
   };
 
-  const handleSuggestionClick = (
-    suggestion: google.maps.places.AutocompletePrediction
-  ) => {
+  const handleSuggestionClick = (suggestion: any) => {
     setLocation(suggestion.description);
     setSuggestions([]);
     setShowSuggestions(false);
   };
 
   const businessTypes = [
-    "Restaurant",
-    "Cafe",
-    "Retail Store",
-    "Office Space",
-    "Gym/Fitness",
-    "Beauty Salon",
-    "Medical Clinic",
-    "Educational Center",
-    "Entertainment Venue",
-    "Service Business",
+    'Restaurant',
+    'Cafe',
+    'Retail Store',
+    'Office Space',
+    'Gym/Fitness',
+    'Beauty Salon',
+    'Medical Clinic',
+    'Educational Center',
+    'Entertainment Venue',
+    'Service Business',
   ];
 
-  const businessScales = ["SME", "Franchise", "Corporate"];
+  const businessScales = [
+    'SME',
+    'Franchise',
+    'Corporate'
+  ];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (location.trim() && businessType) {
-      sessionStorage.setItem("lastScale", businessScale || "SME");
-      onSubmit(location.trim(), businessType, businessScale || "SME");
+      onSubmit(location.trim(), businessType);
     }
   };
 
-  const isFormValid = !!(location.trim() && businessType);
+  const isFormValid = location.trim() && businessType && businessScale;
 
   return (
-    <div
-      className="w-full h-screen bg-cover bg-center overflow-hidden"
-      style={{ backgroundImage: "url('/background.jpg')" }}
-    >
-      <div className="min-h-screen flex items-center justify-center p-6">
-        <div className="w-full max-w-5xl">
-          <div className="relative rounded-2xl border border-gray-200 shadow-[0_4px_10px_rgba(0,0,0,0.3),_inset_0_2px_4px_rgba(255,255,255,0.6)]">
-            {/* Header */}
-            <div className="mt-8 text-black text-center">
-              <div className="flex items-center justify-center">
-                <img
-                  src="/logo.png"
-                  alt="Logo"
-                  className="w-20 h-auto object-contain"
-                />
-                <h1 className="text-5xl font-bold">BizLocate</h1>
-              </div>
-              <p className="text-black-100 text-lg">
-                Finding the best location for your business
-              </p>
+    <div className="min-h-screen flex items-center justify-center px-8 py-16">
+      <WaveBackground />
+      
+      <div className="w-full max-w-7xl space-y-12 animate-fade-in">
+        {/* Brand Header */}
+        <div className="text-center space-y-6">
+          <div className="flex items-center justify-center gap-4 mb-4">
+            <div className="relative">
+              <MapPin className="w-16 h-16 text-secondary drop-shadow-lg" fill="currentColor" />
+              <div className="absolute inset-0 blur-xl bg-secondary/30"></div>
+            </div>
+            <h1 className="text-7xl font-bold text-white drop-shadow-2xl">
+              BizLocate
+            </h1>
+          </div>
+          <p className="text-2xl text-white/90 font-medium drop-shadow-lg">
+            Finding the best location for your business
+          </p>
+        </div>
+
+        {/* Horizontal Form */}
+        <form onSubmit={handleSubmit} className="w-full">
+          <div className="flex items-start gap-4 max-w-6xl mx-auto">
+            {/* Location Input with Suggestions */}
+            <div className="flex-1 relative">
+              <input
+                id="location"
+                type="text"
+                value={location}
+                onChange={(e) => handleLocationChange(e.target.value)}
+                onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
+                placeholder="e.g., near LRT KLCC, Malaysia"
+                className="w-full h-14 px-12 bg-white/95 backdrop-blur-sm border-2 border-foreground/20 rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all shadow-lg text-base"
+                required
+              />
+              <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none" />
+              
+              {showSuggestions && suggestions.length > 0 && (
+                <div className="absolute z-50 w-full mt-2 bg-white border-2 border-foreground/20 rounded-lg shadow-2xl max-h-80 overflow-y-auto">
+                  {suggestions.map((suggestion) => (
+                    <button
+                      key={suggestion.place_id}
+                      type="button"
+                      onClick={() => handleSuggestionClick(suggestion)}
+                      className="w-full text-left px-4 py-3 hover:bg-primary-light transition-colors border-b border-border last:border-b-0"
+                    >
+                      <div className="flex items-start gap-2">
+                        <MapPin className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
+                        <div>
+                          <div className="font-medium text-foreground">
+                            {suggestion.structured_formatting.main_text}
+                          </div>
+                          <div className="text-sm text-muted-foreground">
+                            {suggestion.structured_formatting.secondary_text}
+                          </div>
+                        </div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
-            {/* Form */}
-            <form onSubmit={handleSubmit} className="p-8">
-              <div className="space-y-6">
-                <div className="flex flex-row">
-                  {/* Location Input */}
-                  <div className="p-2 flex-1 relative z-20">
-                    <div className="relative">
-                      <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 z-10" />
-                      <input
-                        id="location"
-                        type="text"
-                        value={location}
-                        onChange={(e) => handleLocationChange(e.target.value)}
-                        onBlur={() =>
-                          setTimeout(() => setShowSuggestions(false), 200)
-                        }
-                        placeholder="e.g., near LRT KLCC, Malaysia"
-                        className="w-full pl-12 pr-4 py-4 border border-gray-300 rounded-xl
-                                   text-lg transition-all duration-200
-                                   focus:ring-2 focus:ring-blue-500 focus:border-transparent
-                                   hover:border-blue-400 hover:shadow-md bg-white/90 backdrop-blur"
-                        required
-                      />
+            {/* Business Type Dropdown */}
+            <div className="relative">
+              <select
+                id="business-type"
+                value={businessType}
+                onChange={(e) => setBusinessType(e.target.value)}
+                className="h-14 px-6 pr-10 bg-white/95 backdrop-blur-sm border-2 border-foreground/20 rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all shadow-lg min-w-[220px] appearance-none text-base"
+                required
+              >
+                <option value="">Select business type</option>
+                {businessTypes.map((type) => (
+                  <option key={type} value={type}>
+                    {type}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none" />
+            </div>
 
-                      {showSuggestions && suggestions.length > 0 && (
-                        <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded-lg shadow-xl z-50 max-h-60 overflow-y-auto">
-                          {suggestions.map((s) => (
-                            <button
-                              key={s.place_id}
-                              type="button"
-                              onClick={() => handleSuggestionClick(s)}
-                              className="w-full text-left px-4 py-3 hover:bg-gray-50 border-b border-gray-100 last:border-b-0"
-                            >
-                              <div className="flex items-center gap-3">
-                                <MapPin className="w-4 h-4 text-gray-400" />
-                                <div>
-                                  <div className="text-sm font-medium text-gray-900">
-                                    {s.structured_formatting.main_text}
-                                  </div>
-                                  <div className="text-xs text-gray-500">
-                                    {s.structured_formatting.secondary_text}
-                                  </div>
-                                </div>
-                              </div>
-                            </button>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  </div>
+            {/* Business Scale Dropdown */}
+            <div className="relative">
+              <select
+                id="business-scale"
+                value={businessScale}
+                onChange={(e) => setBusinessScale(e.target.value)}
+                className="h-14 px-6 pr-10 bg-white/95 backdrop-blur-sm border-2 border-foreground/20 rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all shadow-lg min-w-[220px] appearance-none text-base"
+                required
+              >
+                <option value="">Select business scale</option>
+                {businessScales.map((scale) => (
+                  <option key={scale} value={scale}>
+                    {scale}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none" />
+            </div>
 
-                  {/* Business Type Dropdown */}
-                  <div className="p-2 flex-1 relative z-10">
-                    <div className="relative">
-                      <button
-                        type="button"
-                        onClick={() => setTypeOpen((o) => !o)}
-                        className="w-full px-4 py-4 border border-gray-300 rounded-xl
-                                   text-lg bg-white text-left
-                                   focus:ring-2 focus:ring-blue-500 focus:border-transparent
-                                   hover:border-blue-400 hover:shadow-md
-                                   flex justify-between items-center"
-                      >
-                        {businessType || "Select business type"}
-                        <ChevronDown className="w-5 h-5 text-gray-400 ml-2" />
-                      </button>
-
-                      {typeOpen && (
-                        <ul className="absolute top-full mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-lg z-50 max-h-48 overflow-y-auto">
-                          {businessTypes.map((type) => (
-                            <li
-                              key={type}
-                              className="px-4 py-3 hover:bg-gray-100 cursor-pointer"
-                              onClick={() => {
-                                setBusinessType(type);
-                                setTypeOpen(false);
-                              }}
-                            >
-                              {type}
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Business Scale Dropdown */}
-                  <div className="p-2 flex-1 relative z-10">
-                    <div className="relative">
-                      <button
-                        type="button"
-                        onClick={() => setScaleOpen((o) => !o)}
-                        className="w-full px-4 py-4 border border-gray-300 rounded-xl
-                                   text-lg bg-white text-left
-                                   focus:ring-2 focus:ring-blue-500 focus:border-transparent
-                                   hover:border-blue-400 hover:shadow-md
-                                   flex justify-between items-center"
-                      >
-                        {businessScale || "Select business scale"}
-                        <ChevronDown className="w-5 h-5 text-gray-400 ml-2" />
-                      </button>
-
-                      {scaleOpen && (
-                        <ul className="absolute top-full mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-lg z-50 max-h-48 overflow-y-auto">
-                          {businessScales.map((scale) => (
-                            <li
-                              key={scale}
-                              className="px-4 py-3 hover:bg-gray-100 cursor-pointer"
-                              onClick={() => {
-                                setBusinessScale(scale);
-                                setScaleOpen(false);
-                              }}
-                            >
-                              {scale}
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Submit Button */}
-                  <div className="p-2">
-                    <button
-                      type="submit"
-                      disabled={!isFormValid}
-                      className={`py-4 px-8 rounded-xl text-white font-semibold text-lg transition-all duration-300 transform ${
-                        isFormValid
-                          ? "bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 hover:scale-[1.02] shadow-lg"
-                          : "bg-gray-400 cursor-not-allowed"
-                      }`}
-                    >
-                      {isFormValid ? "Analyze" : "Fill all fields"}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </form>
+            {/* Submit Button */}
+            <button
+              type="submit"
+              disabled={!isFormValid}
+              className="h-14 px-8 bg-primary hover:bg-primary-hover text-white font-semibold rounded-lg transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-primary whitespace-nowrap text-base"
+            >
+              {isFormValid ? 'Analyze Location' : 'Fill all fields'}
+            </button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );
