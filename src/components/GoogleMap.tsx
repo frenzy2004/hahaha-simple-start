@@ -11,17 +11,17 @@ interface GoogleMapProps {
 
 const GoogleMap: React.FC<GoogleMapProps> = ({ location, businesses, onBusinessClick, className = '' }) => {
   const mapRef = useRef<HTMLDivElement>(null);
-  const mapInstanceRef = useRef<google.maps.Map | null>(null);
-  const markersRef = useRef<google.maps.Marker[]>([]);
-  const circlesRef = useRef<google.maps.Circle[]>([]);
-  const mainMarkerRef = useRef<google.maps.Marker | null>(null);
+  const mapInstanceRef = useRef<any | null>(null);
+  const markersRef = useRef<any[]>([]);
+  const circlesRef = useRef<any[]>([]);
+  const mainMarkerRef = useRef<any | null>(null);
   const { isLoaded, loadError } = useGoogleMaps();
   const [isInitialized, setIsInitialized] = useState(false);
 
   const initializeMap = () => {
     if (!mapRef.current || !window.google || mapInstanceRef.current) return;
 
-    const map = new google.maps.Map(mapRef.current, {
+    const map = new (window as any).google.maps.Map(mapRef.current, {
       center: location,
       zoom: 14,
       styles: [
@@ -56,7 +56,7 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ location, businesses, onBusinessC
     mapInstanceRef.current = map;
 
     // Add initial main location marker
-    mainMarkerRef.current = new google.maps.Marker({
+    mainMarkerRef.current = new (window as any).google.maps.Marker({
       position: location,
       map,
       title: 'Selected Location',
@@ -67,8 +67,8 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ location, businesses, onBusinessC
             <circle cx="12" cy="9" r="2.5" fill="white"/>
           </svg>
         `),
-        scaledSize: new google.maps.Size(32, 32),
-        anchor: new google.maps.Point(16, 32),
+        scaledSize: new (window as any).google.maps.Size(32, 32),
+        anchor: new (window as any).google.maps.Point(16, 32),
       },
     });
 
@@ -77,7 +77,7 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ location, businesses, onBusinessC
     const colors = ['#EF4444', '#3B82F6'];
     
     radii.forEach((radius, index) => {
-      const circle = new google.maps.Circle({
+      const circle = new (window as any).google.maps.Circle({
         strokeColor: colors[index],
         strokeOpacity: 0.8,
         strokeWeight: 2,
@@ -102,7 +102,7 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ location, businesses, onBusinessC
 
     // Add business markers
     businesses.forEach(business => {
-      const marker = new google.maps.Marker({
+      const marker = new (window as any).google.maps.Marker({
         position: business.position,
         map: mapInstanceRef.current,
         title: business.name,
@@ -113,8 +113,8 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ location, businesses, onBusinessC
               <circle cx="12" cy="9" r="2.5" fill="white"/>
             </svg>
           `),
-          scaledSize: new google.maps.Size(24, 24),
-          anchor: new google.maps.Point(12, 24),
+          scaledSize: new (window as any).google.maps.Size(24, 24),
+          anchor: new (window as any).google.maps.Point(12, 24),
         },
       });
 
@@ -144,7 +144,7 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ location, businesses, onBusinessC
       const colors = ['#EF4444', '#3B82F6'];
       
       radii.forEach((radius, index) => {
-        const circle = new google.maps.Circle({
+        const circle = new (window as any).google.maps.Circle({
           strokeColor: colors[index],
           strokeOpacity: 0.8,
           strokeWeight: 2,

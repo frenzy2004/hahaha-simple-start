@@ -19,7 +19,6 @@ import { geocodeLocation } from '../utils/geocoding';
 import { findNearbyBusinesses } from '../utils/placesService';
 import { useGoogleMaps } from '../hooks/useGoogleMaps';
 import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
 
 interface LocationAnalysisProps {
   location: string;
@@ -90,7 +89,7 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
     setSelectedBusiness(business);
   };
 
-  const handleRecenterMap = (business: Business) => {
+  const handleRecenterMap = (_business: Business) => {
     setSelectedBusiness(null);
     // Map will automatically update with the business location
   };
@@ -99,7 +98,6 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
     setIsDownloading(true);
     try {
       const pdf = new jsPDF('p', 'mm', 'a4');
-      const pageWidth = pdf.internal.pageSize.getWidth();
       const margin = 10;
 
       // Title page

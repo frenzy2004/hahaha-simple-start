@@ -10,14 +10,14 @@ interface LocationRequestProps {
 const LocationRequest: React.FC<LocationRequestProps> = ({ onSubmit }) => {
   const [location, setLocation] = useState('');
   const [businessType, setBusinessType] = useState('');
-  const [suggestions, setSuggestions] = useState<google.maps.places.AutocompletePrediction[]>([]);
+  const [suggestions, setSuggestions] = useState<any[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const autocompleteService = useRef<google.maps.places.AutocompleteService | null>(null);
+  const autocompleteService = useRef<any | null>(null);
   const { isLoaded } = useGoogleMaps();
 
   useEffect(() => {
     if (isLoaded && window.google) {
-      autocompleteService.current = new google.maps.places.AutocompleteService();
+      autocompleteService.current = new (window as any).google.maps.places.AutocompleteService();
     }
   }, [isLoaded]);
 
@@ -30,8 +30,8 @@ const LocationRequest: React.FC<LocationRequestProps> = ({ onSubmit }) => {
           input: value,
           types: ['establishment', 'geocode']
         },
-        (predictions, status) => {
-          if (status === google.maps.places.PlacesServiceStatus.OK && predictions) {
+        (predictions: any, status: any) => {
+          if (status === (window as any).google.maps.places.PlacesServiceStatus.OK && predictions) {
             setSuggestions(predictions.slice(0, 5));
             setShowSuggestions(true);
           } else {
@@ -46,7 +46,7 @@ const LocationRequest: React.FC<LocationRequestProps> = ({ onSubmit }) => {
     }
   };
 
-  const handleSuggestionClick = (suggestion: google.maps.places.AutocompletePrediction) => {
+  const handleSuggestionClick = (suggestion: any) => {
     setLocation(suggestion.description);
     setSuggestions([]);
     setShowSuggestions(false);

@@ -10,7 +10,7 @@ export const geocodeLocation = async (address: string): Promise<Location | null>
   
   try {
     const result = await new Promise<google.maps.GeocoderResult[]>((resolve, reject) => {
-      geocoder.geocode({ address }, (results, status) => {
+      geocoder.geocode({ address }, (results: google.maps.GeocoderResult[] | null, status: google.maps.GeocoderStatus) => {
         if (status === 'OK' && results && results.length > 0) {
           resolve(results);
         } else {

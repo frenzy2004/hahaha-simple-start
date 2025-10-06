@@ -15,6 +15,7 @@
     "@aws-sdk/client-bedrock-runtime": "^3.893.0",
     "@googlemaps/js-api-loader": "^1.16.10",
     "@supabase/supabase-js": "^2.57.4",
+    "@types/google.maps": "^3.58.1",
     "chart.js": "^4.5.0",
     "clsx": "^2.1.1",
     "cors": "^2.8.5",

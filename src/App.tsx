@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import LocationRequest from './pages/LocationRequest';
 import LocationAnalysis from './pages/LocationAnalysis';
 import { AnalysisTab } from './types';

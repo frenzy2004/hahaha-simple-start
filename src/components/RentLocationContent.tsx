@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, DollarSign, TrendingUp, Building, Calculator, Info, Star, Users, Clock } from 'lucide-react';
+import { MapPin, TrendingUp, Building, Calculator, Info, Star, Users, Clock } from 'lucide-react';
 
 interface RentLocationContentProps {
   location: string;

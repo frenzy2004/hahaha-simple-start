@@ -96,7 +96,7 @@ const CompetitionDensityChart: React.FC<CompetitionDensityChartProps> = ({ data 
         },
       },
     },
-    onClick: (event: any, elements: any) => {
+    onClick: (_event: any, elements: any) => {
       if (elements.length > 0) {
         const element = elements[0];
         const radius = chartData.labels[element.index];
