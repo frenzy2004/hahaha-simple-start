@@ -1,12 +1,13 @@
-import citySkyline from "@/assets/city-skyline.jpg";
-
 const WaveBackground = () => {
   return (
     <div className="fixed inset-0 -z-10">
-      <img 
-        src={citySkyline} 
-        alt="City skyline" 
-        className="w-full h-full object-cover"
+      <div 
+        className="absolute inset-0"
+        style={{
+          backgroundImage: 'linear-gradient(to bottom, #1e3a5f 0%, #2d5a7b 50%, #87CEEB 100%)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}
       />
       <div 
         className="absolute inset-0"
