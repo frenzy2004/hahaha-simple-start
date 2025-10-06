@@ -157,25 +157,25 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
       />
 
       {/* Header */}
-      <div className="bg-white shadow-sm border-b border-gray-200 p-4 flex items-center justify-between">
+      <div className="bg-background shadow-sm border-b border-border px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <button
             onClick={onBack}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-2.5 hover:bg-muted rounded-lg transition-all duration-200"
             aria-label="Go back to location request"
           >
-            <ArrowLeft className="w-5 h-5" />
+            <ArrowLeft className="w-5 h-5 text-foreground" />
           </button>
           <button
             onClick={() => setIsPanelOpen(!isPanelOpen)}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors lg:hidden"
+            className="p-2.5 hover:bg-muted rounded-lg transition-all duration-200 lg:hidden"
             aria-label={isPanelOpen ? 'Close analysis panel' : 'Open analysis panel'}
           >
-            {isPanelOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isPanelOpen ? <X className="w-5 h-5 text-foreground" /> : <Menu className="w-5 h-5 text-foreground" />}
           </button>
           <div className="hidden lg:block">
-            <h1 className="text-xl font-semibold text-gray-900">Location Analysis</h1>
-            <p className="text-sm text-gray-600">{location} • {businessType}</p>
+            <h1 className="text-xl font-semibold text-foreground">Location Analysis</h1>
+            <p className="text-sm text-muted-foreground">{location} • {businessType}</p>
           </div>
         </div>
 
@@ -183,18 +183,18 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
           <button
             onClick={downloadPDF}
             disabled={isDownloading}
-            className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50"
+            className="flex items-center gap-2 px-4 py-2.5 bg-success text-white rounded-lg hover:bg-success-hover transition-all duration-200 disabled:opacity-50 font-medium shadow-sm hover:shadow"
           >
             <Download className="w-4 h-4" />
-            {isDownloading ? 'Generating...' : 'Download PDF'}
+            <span className="hidden sm:inline">{isDownloading ? 'Generating...' : 'Download PDF'}</span>
           </button>
           <button
             onClick={() => setShowAIAssistant(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            className="flex items-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg hover:bg-primary-hover transition-all duration-200 font-medium shadow-sm hover:shadow"
             aria-label="Open AI Assistant"
           >
             <MessageCircle className="w-4 h-4" />
-            Ask AI Assistant
+            <span className="hidden sm:inline">Ask AI</span>
           </button>
         </div>
       </div>

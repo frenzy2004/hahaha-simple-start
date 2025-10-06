@@ -20,23 +20,23 @@ const TabNavigation: React.FC<TabNavigationProps> = ({
   if (tabs.length === 0) return null;
 
   return (
-    <div className="bg-white border-b border-gray-200 shadow-sm">
-      <div className="flex items-center px-4 py-2 overflow-x-auto">
-        <div className="flex items-center gap-1 min-w-0 flex-1">
+    <div className="bg-background border-b border-border shadow-sm">
+      <div className="flex items-center px-6 py-3 overflow-x-auto gap-3">
+        <div className="flex items-center gap-2 min-w-0 flex-1">
           {tabs.map((tab) => (
-            <div
+            <button
               key={tab.id}
-              className={`group flex items-center gap-2 px-4 py-2 rounded-t-lg border-b-2 transition-all duration-200 cursor-pointer min-w-0 ${
+              className={`group flex items-center gap-3 px-5 py-2.5 rounded-lg border transition-all duration-200 min-w-0 ${
                 tab.id === activeTabId
-                  ? 'bg-blue-50 border-blue-500 text-blue-700'
-                  : 'bg-gray-50 border-transparent text-gray-600 hover:bg-gray-100 hover:text-gray-800'
+                  ? 'bg-primary-light border-primary text-primary shadow-sm'
+                  : 'bg-background border-border text-muted-foreground hover:bg-muted hover:border-muted-foreground/30'
               }`}
               onClick={() => onTabSwitch(tab.id)}
             >
               <BarChart3 className="w-4 h-4 flex-shrink-0" />
-              <div className="min-w-0 flex-1">
+              <div className="min-w-0 flex-1 text-left">
                 <div className="font-medium text-sm truncate">{tab.label}</div>
-                <div className="text-xs opacity-75 truncate">
+                <div className="text-xs opacity-70 truncate">
                   {tab.businessType} • {tab.location.split(',')[0]}
                 </div>
               </div>
@@ -46,19 +46,19 @@ const TabNavigation: React.FC<TabNavigationProps> = ({
                     e.stopPropagation();
                     onTabClose(tab.id);
                   }}
-                  className="p-1 rounded-full opacity-0 group-hover:opacity-100 hover:bg-red-100 hover:text-red-600 transition-all duration-200"
+                  className="p-1 rounded-md opacity-0 group-hover:opacity-100 hover:bg-red-50 hover:text-red-600 transition-all duration-200"
                   aria-label={`Close ${tab.label}`}
                 >
-                  <X className="w-3 h-3" />
+                  <X className="w-3.5 h-3.5" />
                 </button>
               )}
-            </div>
+            </button>
           ))}
         </div>
         
         <button
           onClick={onNewComparison}
-          className="flex items-center gap-2 px-4 py-2 ml-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 flex-shrink-0"
+          className="flex items-center gap-2 px-5 py-2.5 bg-primary text-white rounded-lg hover:bg-primary-hover transition-all duration-200 flex-shrink-0 font-medium shadow-sm hover:shadow"
           aria-label="Start new comparison"
         >
           <Plus className="w-4 h-4" />
