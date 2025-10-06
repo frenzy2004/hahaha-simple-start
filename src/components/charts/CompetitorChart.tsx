@@ -25,8 +25,8 @@ const CompetitorChart: React.FC<CompetitorChartProps> = ({ data }) => {
           name: item.name,
           distance: item.distance,
         })),
-        backgroundColor: 'rgba(59, 130, 246, 0.6)',
-        borderColor: '#3B82F6',
+        backgroundColor: 'rgba(14, 165, 233, 0.6)',
+        borderColor: 'hsl(199, 89%, 48%)',
         borderWidth: 2,
         pointRadius: 8,
         pointHoverRadius: 12,
@@ -57,7 +57,7 @@ const CompetitorChart: React.FC<CompetitorChartProps> = ({ data }) => {
         backgroundColor: 'rgba(0, 0, 0, 0.8)',
         titleColor: '#ffffff',
         bodyColor: '#ffffff',
-        borderColor: '#3B82F6',
+        borderColor: 'hsl(199, 89%, 48%)',
         borderWidth: 1,
       },
     },
@@ -94,10 +94,10 @@ const CompetitorChart: React.FC<CompetitorChartProps> = ({ data }) => {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-md p-6">
-      <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-4 rounded-t-lg -m-6 mb-6">
+    <div className="bg-card rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 animate-fade-in">
+      <div className="bg-gradient-to-r from-primary to-secondary text-white p-4 rounded-t-lg -m-6 mb-6">
         <h3 className="text-lg font-semibold">Competitor Analysis</h3>
-        <p className="text-blue-100 text-sm">Size vs Rating comparison</p>
+        <p className="text-white/80 text-sm">Size vs Rating comparison</p>
       </div>
       <div className="h-80">
         <Scatter data={chartData} options={options} />

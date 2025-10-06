@@ -29,10 +29,10 @@ const LocationProfileChart: React.FC<LocationProfileChartProps> = ({ data }) => 
       {
         label: 'Location Profile',
         data: [data.age, data.income, data.familySize, data.daytimePop, data.accessibility],
-        backgroundColor: 'rgba(59, 130, 246, 0.2)',
-        borderColor: '#3B82F6',
+        backgroundColor: 'rgba(14, 165, 233, 0.15)',
+        borderColor: 'hsl(199, 89%, 48%)',
         borderWidth: 3,
-        pointBackgroundColor: '#3B82F6',
+        pointBackgroundColor: 'hsl(199, 89%, 48%)',
         pointBorderColor: '#ffffff',
         pointBorderWidth: 2,
         pointRadius: 6,
@@ -78,17 +78,17 @@ const LocationProfileChart: React.FC<LocationProfileChartProps> = ({ data }) => 
   };
 
   const metrics = [
-    { label: 'Competition', score: 75, color: 'bg-orange-500' },
-    { label: 'Demand', score: 88, color: 'bg-green-500' },
-    { label: 'Accessibility', score: 95, color: 'bg-blue-500' },
-    { label: 'Demographics', score: 82, color: 'bg-purple-500' },
+    { label: 'Competition', score: 75, color: 'bg-warning' },
+    { label: 'Demand', score: 88, color: 'bg-success' },
+    { label: 'Accessibility', score: 95, color: 'bg-primary' },
+    { label: 'Demographics', score: 82, color: 'bg-accent' },
   ];
 
   return (
-    <div className="bg-white rounded-xl shadow-md p-6">
-      <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-4 rounded-t-lg -m-6 mb-6">
+    <div className="bg-card rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 animate-fade-in">
+      <div className="bg-gradient-to-r from-primary to-secondary text-white p-4 rounded-t-lg -m-6 mb-6">
         <h3 className="text-lg font-semibold">Location Profile</h3>
-        <p className="text-blue-100 text-sm">Key location characteristics</p>
+        <p className="text-white/80 text-sm">Key location characteristics</p>
       </div>
       <div className="h-80 mb-6">
         <Radar data={chartData} options={options} />
@@ -96,9 +96,9 @@ const LocationProfileChart: React.FC<LocationProfileChartProps> = ({ data }) => 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {metrics.map((metric, index) => (
           <div key={index} className="text-center">
-            <div className="text-2xl font-bold text-gray-800">{metric.score}</div>
-            <div className="text-sm text-gray-600 mb-2">{metric.label}</div>
-            <div className="w-full bg-gray-200 rounded-full h-2">
+            <div className="text-2xl font-bold text-foreground">{metric.score}</div>
+            <div className="text-sm text-muted-foreground mb-2">{metric.label}</div>
+            <div className="w-full bg-muted rounded-full h-2">
               <div
                 className={`h-2 rounded-full ${metric.color} transition-all duration-1000`}
                 style={{ width: `${metric.score}%` }}

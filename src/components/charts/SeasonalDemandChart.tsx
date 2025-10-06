@@ -74,12 +74,12 @@ const SeasonalDemandChart: React.FC<SeasonalDemandChartProps> = ({ data }) => {
       {
         label: 'Demand Score',
         data: data.map(d => d.demand),
-        borderColor: '#3B82F6',
-        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+        borderColor: 'hsl(199, 89%, 48%)',
+        backgroundColor: 'rgba(14, 165, 233, 0.1)',
         borderWidth: 3,
         fill: true,
         tension: 0.4,
-        pointBackgroundColor: '#3B82F6',
+        pointBackgroundColor: 'hsl(199, 89%, 48%)',
         pointBorderColor: '#ffffff',
         pointBorderWidth: 2,
         pointRadius: 6,
@@ -111,7 +111,7 @@ const SeasonalDemandChart: React.FC<SeasonalDemandChartProps> = ({ data }) => {
         backgroundColor: 'rgba(0, 0, 0, 0.8)',
         titleColor: '#ffffff',
         bodyColor: '#ffffff',
-        borderColor: '#3B82F6',
+        borderColor: 'hsl(199, 89%, 48%)',
         borderWidth: 1,
         cornerRadius: 8,
         padding: 12,
@@ -154,10 +154,10 @@ const SeasonalDemandChart: React.FC<SeasonalDemandChartProps> = ({ data }) => {
   const annotations = getAnnotationPositions();
 
   return (
-    <div className="bg-white rounded-xl shadow-md p-6">
-      <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-4 rounded-t-lg -m-6 mb-6">
+    <div className="bg-card rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 animate-fade-in">
+      <div className="bg-gradient-to-r from-primary to-secondary text-white p-4 rounded-t-lg -m-6 mb-6">
         <h3 className="text-lg font-semibold">Seasonal Demand Trends</h3>
-        <p className="text-blue-100 text-sm">Monthly demand patterns throughout the year</p>
+        <p className="text-white/80 text-sm">Monthly demand patterns throughout the year</p>
       </div>
       <div className="relative h-80 mb-4">
         {annotations.map((annotation) => (
@@ -185,30 +185,30 @@ const SeasonalDemandChart: React.FC<SeasonalDemandChartProps> = ({ data }) => {
       </div>
       
       {/* Summary Statistics */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-gray-100">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-border">
         <div className="text-center">
-          <div className="text-lg font-semibold text-gray-800">
+          <div className="text-lg font-semibold text-foreground">
             {Math.max(...data.map(d => d.demand))}
           </div>
-          <div className="text-xs text-gray-600">Peak Demand</div>
+          <div className="text-xs text-muted-foreground">Peak Demand</div>
         </div>
         <div className="text-center">
-          <div className="text-lg font-semibold text-gray-800">
+          <div className="text-lg font-semibold text-foreground">
             {Math.min(...data.map(d => d.demand))}
           </div>
-          <div className="text-xs text-gray-600">Low Demand</div>
+          <div className="text-xs text-muted-foreground">Low Demand</div>
         </div>
         <div className="text-center">
-          <div className="text-lg font-semibold text-gray-800">
+          <div className="text-lg font-semibold text-foreground">
             {(data.reduce((sum, d) => sum + d.demand, 0) / data.length).toFixed(0)}
           </div>
-          <div className="text-xs text-gray-600">Average</div>
+          <div className="text-xs text-muted-foreground">Average</div>
         </div>
         <div className="text-center">
-          <div className="text-lg font-semibold text-gray-800">
+          <div className="text-lg font-semibold text-foreground">
             {(data.reduce((sum, d) => sum + Math.abs(d.change), 0) / data.length).toFixed(1)}%
           </div>
-          <div className="text-xs text-gray-600">Avg Change</div>
+          <div className="text-xs text-muted-foreground">Avg Change</div>
         </div>
       </div>
     </div>

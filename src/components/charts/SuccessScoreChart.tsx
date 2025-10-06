@@ -11,9 +11,9 @@ const SuccessScoreChart: React.FC<SuccessScoreChartProps> = ({ score }) => {
   const strokeDashoffset = circumference - (score / 100) * circumference;
 
   const getScoreColor = (score: number) => {
-    if (score >= 80) return { color: '#10B981', bg: 'bg-green-100', text: 'text-green-800' };
-    if (score >= 60) return { color: '#F59E0B', bg: 'bg-yellow-100', text: 'text-yellow-800' };
-    return { color: '#EF4444', bg: 'bg-red-100', text: 'text-red-800' };
+    if (score >= 80) return { color: 'hsl(158, 64%, 52%)', bg: 'bg-success-light', text: 'text-success' };
+    if (score >= 60) return { color: 'hsl(38, 92%, 50%)', bg: 'bg-warning-light', text: 'text-warning' };
+    return { color: 'hsl(0, 84%, 60%)', bg: 'bg-destructive/10', text: 'text-destructive' };
   };
 
   const scoreData = getScoreColor(score);
@@ -25,10 +25,10 @@ const SuccessScoreChart: React.FC<SuccessScoreChartProps> = ({ score }) => {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-md p-6">
-      <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-4 rounded-t-lg -m-6 mb-6">
+    <div className="bg-card rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 animate-fade-in">
+      <div className="bg-gradient-to-r from-primary to-secondary text-white p-4 rounded-t-lg -m-6 mb-6">
         <h3 className="text-lg font-semibold">Overall Success Score</h3>
-        <p className="text-blue-100 text-sm">Comprehensive location assessment</p>
+        <p className="text-white/80 text-sm">Comprehensive location assessment</p>
       </div>
       <div className="flex flex-col items-center">
         <div className="relative w-40 h-40 mb-6">
@@ -61,8 +61,8 @@ const SuccessScoreChart: React.FC<SuccessScoreChartProps> = ({ score }) => {
           </svg>
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
-              <div className="text-3xl font-bold text-gray-800">{score}</div>
-              <div className="text-sm text-gray-600">out of 100</div>
+              <div className="text-3xl font-bold text-foreground">{score}</div>
+              <div className="text-sm text-muted-foreground">out of 100</div>
             </div>
           </div>
         </div>

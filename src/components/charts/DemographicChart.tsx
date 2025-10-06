@@ -14,10 +14,10 @@ const DemographicChart: React.FC<DemographicChartProps> = ({ data }) => {
     datasets: [
       {
         data: [data.office, data.residents],
-        backgroundColor: ['#3B82F6', '#14B8A6'],
+        backgroundColor: ['hsl(199, 89%, 48%)', 'hsl(188, 94%, 43%)'],
         borderColor: ['#ffffff', '#ffffff'],
         borderWidth: 3,
-        hoverBackgroundColor: ['#2563EB', '#0D9488'],
+        hoverBackgroundColor: ['hsl(199, 89%, 42%)', 'hsl(188, 94%, 37%)'],
       },
     ],
   };
@@ -52,10 +52,10 @@ const DemographicChart: React.FC<DemographicChartProps> = ({ data }) => {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-md p-6">
-      <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-4 rounded-t-lg -m-6 mb-6">
+    <div className="bg-card rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 animate-fade-in">
+      <div className="bg-gradient-to-r from-primary to-secondary text-white p-4 rounded-t-lg -m-6 mb-6">
         <h3 className="text-lg font-semibold">Demographic Mix</h3>
-        <p className="text-blue-100 text-sm">Local population breakdown</p>
+        <p className="text-white/80 text-sm">Local population breakdown</p>
       </div>
       <div className="h-64">
         <Doughnut data={chartData} options={options} />
