@@ -14,6 +14,9 @@
   "dependencies": {
     "@aws-sdk/client-bedrock-runtime": "^3.893.0",
     "@googlemaps/js-api-loader": "^1.16.10",
+    "@gsap/react": "^2.1.2",
+    "@react-three/drei": "^9.122.0",
+    "@react-three/fiber": "^8.18.0",
     "@supabase/supabase-js": "^2.57.4",
     "@types/google.maps": "^3.58.1",
     "@types/node": "^24.7.0",
@@ -24,6 +27,7 @@
     "date-fns": "^4.1.0",
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
+    "gsap": "^3.13.0",
     "html2canvas": "^1.4.1",
     "jspdf": "^3.0.3",
     "lucide-react": "^0.344.0",
