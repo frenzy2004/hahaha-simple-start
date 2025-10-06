@@ -10,6 +10,7 @@ interface LocationRequestProps {
 const LocationRequest: React.FC<LocationRequestProps> = ({ onSubmit }) => {
   const [location, setLocation] = useState('');
   const [businessType, setBusinessType] = useState('');
+  const [businessScale, setBusinessScale] = useState('');
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const autocompleteService = useRef<any | null>(null);
@@ -65,6 +66,12 @@ const LocationRequest: React.FC<LocationRequestProps> = ({ onSubmit }) => {
     'Service Business',
   ];
 
+  const businessScales = [
+    'SME',
+    'Franchise',
+    'Corporate'
+  ];
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (location.trim() && businessType) {
@@ -72,133 +79,120 @@ const LocationRequest: React.FC<LocationRequestProps> = ({ onSubmit }) => {
     }
   };
 
-  const isFormValid = location.trim() && businessType;
+  const isFormValid = location.trim() && businessType && businessScale;
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center justify-center px-8 py-16">
       <WaveBackground />
       
-      <div className="w-full max-w-2xl">
-        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
-          {/* Header */}
-          <div className="bg-gradient-to-r from-primary to-primary-hover text-white p-8 text-center">
-            <div className="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <MapPin className="w-8 h-8" />
+      <div className="w-full max-w-7xl space-y-12 animate-fade-in">
+        {/* Brand Header */}
+        <div className="text-center space-y-6">
+          <div className="flex items-center justify-center gap-4 mb-4">
+            <div className="relative">
+              <MapPin className="w-16 h-16 text-secondary drop-shadow-lg" fill="currentColor" />
+              <div className="absolute inset-0 blur-xl bg-secondary/30"></div>
             </div>
-            <h1 className="text-3xl font-bold mb-2">BizLocation.ai</h1>
-            <p className="text-blue-100 text-lg">
-              Discover the perfect spot for your business with AI-powered insights
-            </p>
+            <h1 className="text-7xl font-bold text-white drop-shadow-2xl">
+              BizLocate
+            </h1>
           </div>
+          <p className="text-2xl text-white/90 font-medium drop-shadow-lg">
+            Finding the best location for your business
+          </p>
+        </div>
 
-          {/* Form */}
-          <form onSubmit={handleSubmit} className="p-8">
-            <div className="space-y-6">
-              {/* Location Input */}
-              <div>
-                <label htmlFor="location" className="label label-required">
-                  Location
-                </label>
-                <div className="relative">
-                  <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground z-10" />
-                  <input
-                    id="location"
-                    type="text"
-                    value={location}
-                    onChange={(e) => handleLocationChange(e.target.value)}
-                    onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
-                    placeholder="e.g., near LRT KLCC, Malaysia"
-                    className="input-with-icon text-base"
-                    aria-label="Enter location for analysis"
-                    required
-                  />
-                  
-                  {showSuggestions && suggestions.length > 0 && (
-                    <div className="absolute top-full left-0 right-0 bg-background border border-border rounded-lg shadow-lg z-20 mt-1 max-h-60 overflow-y-auto">
-                      {suggestions.map((suggestion) => (
-                        <button
-                          key={suggestion.place_id}
-                          type="button"
-                          onClick={() => handleSuggestionClick(suggestion)}
-                          className="w-full text-left px-4 py-3 hover:bg-muted border-b border-border last:border-b-0 transition-colors"
-                        >
-                          <div className="flex items-center gap-3">
-                            <MapPin className="w-4 h-4 text-muted-foreground flex-shrink-0" />
-                            <div>
-                              <div className="text-sm font-medium text-foreground">
-                                {suggestion.structured_formatting.main_text}
-                              </div>
-                              <div className="text-xs text-muted-foreground">
-                                {suggestion.structured_formatting.secondary_text}
-                              </div>
-                            </div>
+        {/* Horizontal Form */}
+        <form onSubmit={handleSubmit} className="w-full">
+          <div className="flex items-start gap-4 max-w-6xl mx-auto">
+            {/* Location Input with Suggestions */}
+            <div className="flex-1 relative">
+              <input
+                id="location"
+                type="text"
+                value={location}
+                onChange={(e) => handleLocationChange(e.target.value)}
+                onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
+                placeholder="e.g., near LRT KLCC, Malaysia"
+                className="w-full h-14 px-12 bg-white/95 backdrop-blur-sm border-2 border-foreground/20 rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all shadow-lg text-base"
+                required
+              />
+              <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none" />
+              
+              {showSuggestions && suggestions.length > 0 && (
+                <div className="absolute z-50 w-full mt-2 bg-white border-2 border-foreground/20 rounded-lg shadow-2xl max-h-80 overflow-y-auto">
+                  {suggestions.map((suggestion) => (
+                    <button
+                      key={suggestion.place_id}
+                      type="button"
+                      onClick={() => handleSuggestionClick(suggestion)}
+                      className="w-full text-left px-4 py-3 hover:bg-primary-light transition-colors border-b border-border last:border-b-0"
+                    >
+                      <div className="flex items-start gap-2">
+                        <MapPin className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
+                        <div>
+                          <div className="font-medium text-foreground">
+                            {suggestion.structured_formatting.main_text}
                           </div>
-                        </button>
-                      ))}
-                    </div>
-                  )}
+                          <div className="text-sm text-muted-foreground">
+                            {suggestion.structured_formatting.secondary_text}
+                          </div>
+                        </div>
+                      </div>
+                    </button>
+                  ))}
                 </div>
-                <p className="input-hint">
-                  Enter a specific address, landmark, or area you're considering
-                </p>
-              </div>
+              )}
+            </div>
 
-              {/* Business Type Dropdown */}
-              <div>
-                <label htmlFor="businessType" className="label label-required">
-                  Business Type
-                </label>
-                <div className="relative">
-                  <select
-                    id="businessType"
-                    value={businessType}
-                    onChange={(e) => setBusinessType(e.target.value)}
-                    className="select text-base"
-                    aria-label="Select business type"
-                    required
-                  >
-                    <option value="">Select business type</option>
-                    {businessTypes.map((type) => (
-                      <option key={type} value={type}>
-                        {type}
-                      </option>
-                    ))}
-                  </select>
-                  <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none" />
-                </div>
-                <p className="input-hint">
-                  Choose the type of business you want to analyze
-                </p>
-              </div>
+            {/* Business Type Dropdown */}
+            <div className="relative">
+              <select
+                id="business-type"
+                value={businessType}
+                onChange={(e) => setBusinessType(e.target.value)}
+                className="h-14 px-6 pr-10 bg-white/95 backdrop-blur-sm border-2 border-foreground/20 rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all shadow-lg min-w-[220px] appearance-none text-base"
+                required
+              >
+                <option value="">Select business type</option>
+                {businessTypes.map((type) => (
+                  <option key={type} value={type}>
+                    {type}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none" />
+            </div>
+
+            {/* Business Scale Dropdown */}
+            <div className="relative">
+              <select
+                id="business-scale"
+                value={businessScale}
+                onChange={(e) => setBusinessScale(e.target.value)}
+                className="h-14 px-6 pr-10 bg-white/95 backdrop-blur-sm border-2 border-foreground/20 rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all shadow-lg min-w-[220px] appearance-none text-base"
+                required
+              >
+                <option value="">Select business scale</option>
+                {businessScales.map((scale) => (
+                  <option key={scale} value={scale}>
+                    {scale}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none" />
             </div>
 
             {/* Submit Button */}
             <button
               type="submit"
               disabled={!isFormValid}
-              className={`w-full mt-8 py-4 px-8 rounded-lg font-semibold text-lg transition-all duration-300 transform focus:outline-none focus:ring-2 focus:ring-offset-2 ${
-                isFormValid
-                  ? 'btn-primary hover:scale-[1.02]'
-                  : 'bg-muted text-muted-foreground cursor-not-allowed'
-              }`}
-              aria-label="Analyze selected location"
+              className="h-14 px-8 bg-primary hover:bg-primary-hover text-white font-semibold rounded-lg transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-primary whitespace-nowrap text-base"
             >
-              {isFormValid ? 'Analyze Location' : 'Please fill in all fields'}
+              {isFormValid ? 'Analyze Location' : 'Fill all fields'}
             </button>
-
-            {/* Additional Info */}
-            <div className="mt-6 p-4 bg-primary-light rounded-lg border border-primary/20">
-              <h3 className="font-semibold text-foreground mb-2">What you'll get:</h3>
-              <ul className="text-sm text-muted-foreground space-y-1">
-                <li>• Comprehensive demographic analysis</li>
-                <li>• Competitor mapping and insights</li>
-                <li>• Seasonal demand predictions</li>
-                <li>• AI-powered success scoring</li>
-                <li>• Interactive maps and visualizations</li>
-              </ul>
-            </div>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
     </div>
   );

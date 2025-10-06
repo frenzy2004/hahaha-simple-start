@@ -4,11 +4,16 @@
 
 @layer base {
   :root {
-    /* Primary colors - Modern Blue */
-    --primary: 217 91% 60%;
-    --primary-hover: 217 91% 50%;
-    --primary-light: 217 91% 95%;
-    --primary-dark: 217 91% 35%;
+    /* Primary Brand Colors - Blue/Cyan (Trust, Professionalism, Technology) */
+    --primary: 199 89% 48%;
+    --primary-hover: 199 89% 42%;
+    --primary-light: 199 89% 88%;
+    --primary-dark: 199 89% 35%;
+    
+    /* Secondary Brand - Cyan (Innovation, Clarity) */
+    --secondary: 188 94% 43%;
+    --secondary-hover: 188 94% 37%;
+    --secondary-light: 188 94% 88%;
     
     /* Neutral colors - Clean and minimal */
     --background: 0 0% 100%;
@@ -17,28 +22,31 @@
     --muted-foreground: 215 16% 47%;
     --border: 214 32% 91%;
     
-    /* Semantic colors */
-    --success: 142 71% 45%;
-    --success-hover: 142 71% 35%;
-    --success-light: 142 71% 95%;
+    /* Success - Green (Growth, Positive Results) */
+    --success: 158 64% 52%;
+    --success-hover: 158 64% 42%;
+    --success-light: 158 64% 92%;
+    
+    /* Destructive - Red (Caution, Important Actions) */
     --destructive: 0 84% 60%;
     --destructive-hover: 0 84% 50%;
+    
+    /* Warning - Orange (Energy, Attention, Action) */
     --warning: 38 92% 50%;
     --warning-light: 38 92% 95%;
     
+    /* Accent - Purple (Premium, Creativity) */
+    --accent: 262 52% 47%;
+    --accent-light: 262 52% 92%;
+    
     /* Input colors */
     --input-border: 214 32% 91%;
-    --input-focus: 217 91% 60%;
+    --input-focus: 199 89% 48%;
     --input-bg: 0 0% 100%;
     
     /* Card colors */
     --card-bg: 0 0% 100%;
     --card-border: 214 32% 91%;
-    
-    /* Accent colors */
-    --accent-blue: 217 91% 95%;
-    --accent-yellow: 48 96% 53%;
-    --accent-green: 142 71% 95%;
   }
   
   /* Typography baseline */

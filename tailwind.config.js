@@ -10,6 +10,11 @@ export default {
           light: 'hsl(var(--primary-light))',
           dark: 'hsl(var(--primary-dark))',
         },
+        secondary: {
+          DEFAULT: 'hsl(var(--secondary))',
+          hover: 'hsl(var(--secondary-hover))',
+          light: 'hsl(var(--secondary-light))',
+        },
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         muted: {
@@ -30,6 +35,10 @@ export default {
           DEFAULT: 'hsl(var(--warning))',
           light: 'hsl(var(--warning-light))',
         },
+        accent: {
+          DEFAULT: 'hsl(var(--accent))',
+          light: 'hsl(var(--accent-light))',
+        },
         input: {
           border: 'hsl(var(--input-border))',
           focus: 'hsl(var(--input-focus))',
@@ -38,11 +47,6 @@ export default {
         card: {
           bg: 'hsl(var(--card-bg))',
           border: 'hsl(var(--card-border))',
-        },
-        accent: {
-          blue: 'hsl(var(--accent-blue))',
-          yellow: 'hsl(var(--accent-yellow))',
-          green: 'hsl(var(--accent-green))',
         },
       },
       fontSize: {
