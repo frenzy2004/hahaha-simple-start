@@ -112,7 +112,7 @@ const CompetitionDensityChart: React.FC<CompetitionDensityChartProps> = ({ data 
         <h3 className="text-lg font-semibold">Competition Density</h3>
         <p className="text-white/80 text-sm">Competitor distribution by radius</p>
       </div>
-      <div className="h-80 mb-4">
+      <div className="h-96 mb-4">
         <Bar data={chartData} options={options} />
       </div>
       {selectedBar && (

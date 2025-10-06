@@ -99,7 +99,7 @@ const CompetitorChart: React.FC<CompetitorChartProps> = ({ data }) => {
         <h3 className="text-lg font-semibold">Competitor Analysis</h3>
         <p className="text-white/80 text-sm">Size vs Rating comparison</p>
       </div>
-      <div className="h-80">
+      <div className="h-96">
         <Scatter data={chartData} options={options} />
       </div>
     </div>

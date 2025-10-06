@@ -57,7 +57,7 @@ const DemographicChart: React.FC<DemographicChartProps> = ({ data }) => {
         <h3 className="text-lg font-semibold">Demographic Mix</h3>
         <p className="text-white/80 text-sm">Local population breakdown</p>
       </div>
-      <div className="h-64">
+      <div className="h-96">
         <Doughnut data={chartData} options={options} />
       </div>
     </div>

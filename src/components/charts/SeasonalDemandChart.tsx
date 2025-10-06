@@ -159,7 +159,7 @@ const SeasonalDemandChart: React.FC<SeasonalDemandChartProps> = ({ data }) => {
         <h3 className="text-lg font-semibold">Seasonal Demand Trends</h3>
         <p className="text-white/80 text-sm">Monthly demand patterns throughout the year</p>
       </div>
-      <div className="relative h-80 mb-4">
+      <div className="relative h-96 mb-4">
         {annotations.map((annotation) => (
           <div
             key={`${annotation.index}-${annotation.type}`}

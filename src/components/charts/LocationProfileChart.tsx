@@ -90,7 +90,7 @@ const LocationProfileChart: React.FC<LocationProfileChartProps> = ({ data }) => 
         <h3 className="text-lg font-semibold">Location Profile</h3>
         <p className="text-white/80 text-sm">Key location characteristics</p>
       </div>
-      <div className="h-80 mb-6">
+      <div className="h-96 mb-6">
         <Radar data={chartData} options={options} />
       </div>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
