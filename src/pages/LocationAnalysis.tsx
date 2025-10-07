@@ -18,7 +18,7 @@ import { mockAnalysis } from '../data/mockData';
 import { geocodeLocation } from '../utils/geocoding';
 import { findNearbyBusinesses } from '../utils/placesService';
 import { useGoogleMaps } from '../hooks/useGoogleMaps';
-import jsPDF from 'jspdf';
+import { generateEnhancedPDF } from '../utils/pdfExport';
 
 interface LocationAnalysisProps {
   location: string;
@@ -97,49 +97,16 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
   const downloadPDF = async () => {
     setIsDownloading(true);
     try {
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const margin = 10;
-
-      // Title page
-      pdf.setFontSize(24);
-      pdf.text('Location Analysis Report', margin, 30);
-      pdf.setFontSize(16);
-      pdf.text(`Location: ${location}`, margin, 50);
-      pdf.text(`Business Type: ${businessType}`, margin, 60);
-      pdf.text(`Generated: ${new Date().toLocaleDateString()}`, margin, 70);
-
-      // Success Score
-      pdf.setFontSize(18);
-      pdf.text('Overall Success Score', margin, 90);
-      pdf.setFontSize(48);
-      pdf.text(`${analysis.successScore}/100`, margin, 110);
-
-      // KPIs
-      pdf.addPage();
-      pdf.setFontSize(18);
-      pdf.text('Key Performance Indicators', margin, 30);
-      pdf.setFontSize(12);
-      
-      let yPos = 50;
-      pdf.text(`Average Rating: ${analysis.kpis.avgRating}/5`, margin, yPos);
-      yPos += 10;
-      pdf.text(`Monthly Demand: ${analysis.kpis.monthlyDemand.toLocaleString()}`, margin, yPos);
-      yPos += 10;
-      pdf.text(`Competitor Count: ${analysis.kpis.competitorCount}`, margin, yPos);
-      yPos += 10;
-      pdf.text(`Revenue Potential: RM ${analysis.kpis.revenuePotential.toLocaleString()}`, margin, yPos);
-
-      // Demographics
-      pdf.addPage();
-      pdf.setFontSize(18);
-      pdf.text('Demographics', margin, 30);
-      pdf.setFontSize(12);
-      pdf.text(`Office Workers: ${analysis.demographics.office}%`, margin, 50);
-      pdf.text(`Residents: ${analysis.demographics.residents}%`, margin, 60);
-
-      pdf.save('location-analysis-report.pdf');
+      await generateEnhancedPDF({
+        location,
+        businessType,
+        analysis,
+        businesses,
+        mapElementId: 'google-map-container',
+      });
     } catch (error) {
       console.error('Error generating PDF:', error);
+      alert('Failed to generate PDF. Please try again.');
     } finally {
       setIsDownloading(false);
     }
@@ -270,7 +237,7 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
                   </div>
                 </div>
               ) : showMap ? (
-                <div className="h-full">
+                <div id="google-map-container" className="h-full">
                   <GoogleMap
                     location={actualLocation!}
                     businesses={businesses}
@@ -280,13 +247,25 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
                 </div>
               ) : (
                 <div className="p-6 space-y-8">
-                  <SuccessScoreChart score={analysis.successScore} />
+                  <div id="success-score-chart">
+                    <SuccessScoreChart score={analysis.successScore} />
+                  </div>
                   <KPICards kpis={analysis.kpis} />
-                  <SeasonalDemandChart data={analysis.seasonalDemand} />
-                  <DemographicChart data={analysis.demographics} />
-                  <CompetitorChart data={analysis.competitors} />
-                  <LocationProfileChart data={analysis.locationProfile} />
-                  <CompetitionDensityChart data={analysis.competitionDensity} />
+                  <div id="seasonal-demand-chart">
+                    <SeasonalDemandChart data={analysis.seasonalDemand} />
+                  </div>
+                  <div id="demographic-chart">
+                    <DemographicChart data={analysis.demographics} />
+                  </div>
+                  <div id="competitor-chart">
+                    <CompetitorChart data={analysis.competitors} />
+                  </div>
+                  <div id="location-profile-chart">
+                    <LocationProfileChart data={analysis.locationProfile} />
+                  </div>
+                  <div id="competition-density-chart">
+                    <CompetitionDensityChart data={analysis.competitionDensity} />
+                  </div>
                 </div>
               )
             ) : activeTab === 'businesses' ? (
@@ -403,13 +382,25 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
               <div className="flex-1 overflow-y-auto">
                 {activeTab === 'overview' ? (
                   <div className="p-6 space-y-8">
-                    <SuccessScoreChart score={analysis.successScore} />
+                    <div id="success-score-chart-mobile">
+                      <SuccessScoreChart score={analysis.successScore} />
+                    </div>
                     <KPICards kpis={analysis.kpis} />
-                    <SeasonalDemandChart data={analysis.seasonalDemand} />
-                    <DemographicChart data={analysis.demographics} />
-                    <CompetitorChart data={analysis.competitors} />
-                    <LocationProfileChart data={analysis.locationProfile} />
-                    <CompetitionDensityChart data={analysis.competitionDensity} />
+                    <div id="seasonal-demand-chart-mobile">
+                      <SeasonalDemandChart data={analysis.seasonalDemand} />
+                    </div>
+                    <div id="demographic-chart-mobile">
+                      <DemographicChart data={analysis.demographics} />
+                    </div>
+                    <div id="competitor-chart-mobile">
+                      <CompetitorChart data={analysis.competitors} />
+                    </div>
+                    <div id="location-profile-chart-mobile">
+                      <LocationProfileChart data={analysis.locationProfile} />
+                    </div>
+                    <div id="competition-density-chart-mobile">
+                      <CompetitionDensityChart data={analysis.competitionDensity} />
+                    </div>
                   </div>
                 ) : activeTab === 'businesses' ? (
                   <div className="p-6 space-y-4">
