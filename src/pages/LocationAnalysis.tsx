@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Download, ArrowLeft } from 'lucide-react';
 import TabNavigation from '../components/TabNavigation';
-import GoogleMap from '../components/GoogleMap';
 import SeasonalDemandChart from '../components/charts/SeasonalDemandChart';
 import DemographicChart from '../components/charts/DemographicChart';
 import CompetitorChart from '../components/charts/CompetitorChart';
@@ -192,87 +191,10 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
 
       {/* Main Content */}
       <div className="flex-1 flex overflow-hidden">
-        {/* Analysis Panel */}
-        <div
-          className={`bg-card border-r border-border transition-all duration-300 ease-in-out overflow-hidden ${
-            isPanelOpen ? 'w-full' : 'w-0'
-          } lg:w-[35%]`}
-        >
-          <div className="h-full flex flex-col">
-            {/* Panel Header */}
-            <div className="p-4 border-b border-border">
-              <div className="flex items-center justify-between lg:justify-start gap-4">
-                <button
-                  onClick={() => setIsPanelOpen(false)}
-                  className="btn-icon btn-ghost lg:hidden"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-                <div className="flex-1 lg:flex-none">
-                  <h2 className="text-lg font-semibold text-foreground">Analysis Dashboard</h2>
-                  <p className="text-sm text-muted-foreground">{businessType} in {location}</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Panel Content */}
-            <div className="flex-1 overflow-y-auto">
-              {activeTab === 'overview' ? (
-                <div className="p-6 space-y-8">
-                  <SuccessScoreChart score={analysis.successScore} />
-                  <KPICards kpis={analysis.kpis} />
-                  <SeasonalDemandChart data={analysis.seasonalDemand} />
-                  <DemographicChart data={analysis.demographics} />
-                  <CompetitorChart data={analysis.competitors} />
-                  <LocationProfileChart data={analysis.locationProfile} />
-                  <CompetitionDensityChart data={analysis.competitionDensity} />
-                </div>
-              ) : activeTab === 'businesses' ? (
-                <div className="p-6 space-y-4">
-                  <div className="text-sm text-muted-foreground mb-4">
-                    {businesses.length} businesses found within 1km radius
-                  </div>
-                  {businesses.map((business) => (
-                    <BusinessCard
-                      key={business.id}
-                      business={business}
-                      onClick={handleBusinessClick}
-                    />
-                  ))}
-                </div>
-              ) : activeTab === 'rent' ? (
-                <div className="p-6">
-                  <RentLocationContent location={location} businessType={businessType} />
-                </div>
-              ) : activeTab === 'ai-insight' ? (
-                <div className="h-full">
-                  <AIAssistant onClose={() => setActiveTab('overview')} />
-                </div>
-              ) : (
-                <div className="p-6">
-                  <div className="space-y-6">
-                    <div>
-                      <h3 className="text-lg font-semibold text-foreground mb-2">Urban Development Analysis</h3>
-                      <p className="text-muted-foreground">Infrastructure and development insights for this location.</p>
-                    </div>
-                    <div className="grid gap-4">
-                      <div className="p-4 bg-muted rounded-lg">
-                        <h4 className="font-medium text-foreground mb-2">Public Transportation</h4>
-                        <p className="text-sm text-muted-foreground">Analysis of nearby transit options and accessibility.</p>
-                      </div>
-                      <div className="p-4 bg-muted rounded-lg">
-                        <h4 className="font-medium text-foreground mb-2">Future Developments</h4>
-                        <p className="text-sm text-muted-foreground">Planned infrastructure and construction projects in the area.</p>
-                      </div>
-                      <div className="p-4 bg-muted rounded-lg">
-                        <h4 className="font-medium text-foreground mb-2">Amenities</h4>
-                        <p className="text-sm text-muted-foreground">Nearby facilities, parks, schools, and shopping centers.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
+        {/* Left Panel - AI Assistant (Always Visible on Desktop) */}
+        <div className="hidden lg:block lg:w-[30%] bg-card border-r border-border overflow-hidden">
+          <div className="h-full">
+            <AIAssistant />
           </div>
         </div>
 
@@ -313,16 +235,6 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
                 Rent location
               </button>
               <button
-                onClick={() => setActiveTab('ai-insight')}
-                className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
-                  activeTab === 'ai-insight'
-                    ? 'bg-primary text-primary-foreground shadow-sm'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-muted'
-                }`}
-              >
-                AI Insight
-              </button>
-              <button
                 onClick={() => setActiveTab('urban-development')}
                 className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
                   activeTab === 'urban-development'
@@ -336,24 +248,197 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
           </div>
 
           {/* Content Area */}
-          <div className="flex-1 overflow-hidden">
-            {isGeocoding ? (
-              <div className="w-full h-full bg-muted flex items-center justify-center">
-                <div className="text-center">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
-                  <div className="text-muted-foreground">Finding location...</div>
+          <div className="flex-1 overflow-y-auto">
+            {activeTab === 'overview' ? (
+              isGeocoding ? (
+                <div className="w-full h-full bg-muted flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+                    <div className="text-muted-foreground">Finding location...</div>
+                  </div>
                 </div>
+              ) : (
+                <div className="p-6 space-y-8">
+                  <SuccessScoreChart score={analysis.successScore} />
+                  <KPICards kpis={analysis.kpis} />
+                  <SeasonalDemandChart data={analysis.seasonalDemand} />
+                  <DemographicChart data={analysis.demographics} />
+                  <CompetitorChart data={analysis.competitors} />
+                  <LocationProfileChart data={analysis.locationProfile} />
+                  <CompetitionDensityChart data={analysis.competitionDensity} />
+                </div>
+              )
+            ) : activeTab === 'businesses' ? (
+              <div className="p-6 space-y-4">
+                <div className="text-sm text-muted-foreground mb-4">
+                  {businesses.length} businesses found within 1km radius
+                </div>
+                {businesses.map((business) => (
+                  <BusinessCard
+                    key={business.id}
+                    business={business}
+                    onClick={handleBusinessClick}
+                  />
+                ))}
+              </div>
+            ) : activeTab === 'rent' ? (
+              <div className="p-6">
+                <RentLocationContent location={location} businessType={businessType} />
               </div>
             ) : (
-              <GoogleMap
-                location={analysis.location}
-                businesses={businesses}
-                onBusinessClick={handleBusinessClick}
-                className="w-full h-full"
-              />
+              <div className="p-6">
+                <div className="space-y-6">
+                  <div>
+                    <h3 className="text-lg font-semibold text-foreground mb-2">Urban Development Analysis</h3>
+                    <p className="text-muted-foreground">Infrastructure and development insights for this location.</p>
+                  </div>
+                  <div className="grid gap-4">
+                    <div className="p-4 bg-muted rounded-lg">
+                      <h4 className="font-medium text-foreground mb-2">Public Transportation</h4>
+                      <p className="text-sm text-muted-foreground">Analysis of nearby transit options and accessibility.</p>
+                    </div>
+                    <div className="p-4 bg-muted rounded-lg">
+                      <h4 className="font-medium text-foreground mb-2">Future Developments</h4>
+                      <p className="text-sm text-muted-foreground">Planned infrastructure and construction projects in the area.</p>
+                    </div>
+                    <div className="p-4 bg-muted rounded-lg">
+                      <h4 className="font-medium text-foreground mb-2">Amenities</h4>
+                      <p className="text-sm text-muted-foreground">Nearby facilities, parks, schools, and shopping centers.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             )}
           </div>
         </div>
+
+        {/* Mobile Analysis Panel Overlay */}
+        {isPanelOpen && (
+          <div className="fixed inset-0 z-50 lg:hidden bg-background">
+            <div className="h-full flex flex-col">
+              {/* Panel Header */}
+              <div className="p-4 border-b border-border">
+                <div className="flex items-center justify-between">
+                  <button
+                    onClick={() => setIsPanelOpen(false)}
+                    className="btn-icon btn-ghost"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                  <div className="flex-1 text-center">
+                    <h2 className="text-lg font-semibold text-foreground">Analysis Dashboard</h2>
+                    <p className="text-sm text-muted-foreground">{businessType} in {location}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Mobile Tabs */}
+              <div className="bg-background border-b border-border px-4 py-2">
+                <div className="flex gap-2 overflow-x-auto">
+                  <button
+                    onClick={() => setActiveTab('overview')}
+                    className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+                      activeTab === 'overview'
+                        ? 'bg-primary text-primary-foreground shadow-sm'
+                        : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                    }`}
+                  >
+                    Overview
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('businesses')}
+                    className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+                      activeTab === 'businesses'
+                        ? 'bg-primary text-primary-foreground shadow-sm'
+                        : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                    }`}
+                  >
+                    Businesses
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('rent')}
+                    className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+                      activeTab === 'rent'
+                        ? 'bg-primary text-primary-foreground shadow-sm'
+                        : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                    }`}
+                  >
+                    Rent
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('ai-insight')}
+                    className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+                      activeTab === 'ai-insight'
+                        ? 'bg-primary text-primary-foreground shadow-sm'
+                        : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                    }`}
+                  >
+                    AI Chat
+                  </button>
+                </div>
+              </div>
+
+              {/* Panel Content */}
+              <div className="flex-1 overflow-y-auto">
+                {activeTab === 'overview' ? (
+                  <div className="p-6 space-y-8">
+                    <SuccessScoreChart score={analysis.successScore} />
+                    <KPICards kpis={analysis.kpis} />
+                    <SeasonalDemandChart data={analysis.seasonalDemand} />
+                    <DemographicChart data={analysis.demographics} />
+                    <CompetitorChart data={analysis.competitors} />
+                    <LocationProfileChart data={analysis.locationProfile} />
+                    <CompetitionDensityChart data={analysis.competitionDensity} />
+                  </div>
+                ) : activeTab === 'businesses' ? (
+                  <div className="p-6 space-y-4">
+                    <div className="text-sm text-muted-foreground mb-4">
+                      {businesses.length} businesses found within 1km radius
+                    </div>
+                    {businesses.map((business) => (
+                      <BusinessCard
+                        key={business.id}
+                        business={business}
+                        onClick={handleBusinessClick}
+                      />
+                    ))}
+                  </div>
+                ) : activeTab === 'rent' ? (
+                  <div className="p-6">
+                    <RentLocationContent location={location} businessType={businessType} />
+                  </div>
+                ) : activeTab === 'ai-insight' ? (
+                  <div className="h-full">
+                    <AIAssistant onClose={() => setActiveTab('overview')} />
+                  </div>
+                ) : (
+                  <div className="p-6">
+                    <div className="space-y-6">
+                      <div>
+                        <h3 className="text-lg font-semibold text-foreground mb-2">Urban Development Analysis</h3>
+                        <p className="text-muted-foreground">Infrastructure and development insights for this location.</p>
+                      </div>
+                      <div className="grid gap-4">
+                        <div className="p-4 bg-muted rounded-lg">
+                          <h4 className="font-medium text-foreground mb-2">Public Transportation</h4>
+                          <p className="text-sm text-muted-foreground">Analysis of nearby transit options and accessibility.</p>
+                        </div>
+                        <div className="p-4 bg-muted rounded-lg">
+                          <h4 className="font-medium text-foreground mb-2">Future Developments</h4>
+                          <p className="text-sm text-muted-foreground">Planned infrastructure and construction projects in the area.</p>
+                        </div>
+                        <div className="p-4 bg-muted rounded-lg">
+                          <h4 className="font-medium text-foreground mb-2">Amenities</h4>
+                          <p className="text-sm text-muted-foreground">Nearby facilities, parks, schools, and shopping centers.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Hamburger Button for Mobile */}
