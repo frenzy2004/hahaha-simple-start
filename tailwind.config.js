@@ -47,6 +47,7 @@ export default {
         card: {
           bg: 'hsl(var(--card-bg))',
           border: 'hsl(var(--card-border))',
+          hover: 'hsl(var(--card-hover))',
         },
       },
       fontSize: {

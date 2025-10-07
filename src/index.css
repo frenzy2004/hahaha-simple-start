@@ -4,49 +4,64 @@
 
 @layer base {
   :root {
-    /* Primary Brand Colors - Blue/Cyan (Trust, Professionalism, Technology) */
-    --primary: 199 89% 48%;
-    --primary-hover: 199 89% 42%;
-    --primary-light: 199 89% 88%;
-    --primary-dark: 199 89% 35%;
+    /* Dark Theme - Modern Analytics Dashboard */
+    --background: 222 47% 4%;
+    --foreground: 210 40% 98%;
     
-    /* Secondary Brand - Cyan (Innovation, Clarity) */
-    --secondary: 188 94% 43%;
-    --secondary-hover: 188 94% 37%;
-    --secondary-light: 188 94% 88%;
+    /* Primary - Vibrant Blue */
+    --primary: 199 89% 58%;
+    --primary-hover: 199 89% 65%;
+    --primary-light: 199 89% 20%;
+    --primary-glow: 199 89% 70%;
     
-    /* Neutral colors - Clean and minimal */
-    --background: 0 0% 100%;
-    --foreground: 222 47% 11%;
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
-    --border: 214 32% 91%;
+    /* Secondary - Teal/Cyan */
+    --secondary: 174 72% 56%;
+    --secondary-hover: 174 72% 62%;
+    --secondary-light: 174 72% 18%;
     
-    /* Success - Green (Growth, Positive Results) */
-    --success: 158 64% 52%;
-    --success-hover: 158 64% 42%;
-    --success-light: 158 64% 92%;
+    /* Muted colors for subtle backgrounds */
+    --muted: 217 33% 10%;
+    --muted-foreground: 215 20% 65%;
+    --muted-dark: 217 33% 6%;
     
-    /* Destructive - Red (Caution, Important Actions) */
-    --destructive: 0 84% 60%;
-    --destructive-hover: 0 84% 50%;
+    /* Border colors - subtle */
+    --border: 217 33% 15%;
+    --border-subtle: 217 33% 12%;
     
-    /* Warning - Orange (Energy, Attention, Action) */
-    --warning: 38 92% 50%;
-    --warning-light: 38 92% 95%;
+    /* Card backgrounds with glass effect */
+    --card-bg: 217 33% 8%;
+    --card-border: 217 33% 15%;
+    --card-hover: 217 33% 10%;
     
-    /* Accent - Purple (Premium, Creativity) */
-    --accent: 262 52% 47%;
-    --accent-light: 262 52% 92%;
+    /* Success - Green */
+    --success: 142 76% 58%;
+    --success-hover: 142 76% 65%;
+    --success-light: 142 76% 18%;
+    
+    /* Destructive - Red/Orange */
+    --destructive: 0 72% 60%;
+    --destructive-hover: 0 72% 67%;
+    --destructive-light: 0 72% 18%;
+    
+    /* Warning - Amber */
+    --warning: 38 92% 60%;
+    --warning-light: 38 92% 18%;
+    
+    /* Accent - Purple/Violet */
+    --accent: 262 83% 65%;
+    --accent-light: 262 83% 18%;
     
     /* Input colors */
-    --input-border: 214 32% 91%;
-    --input-focus: 199 89% 48%;
-    --input-bg: 0 0% 100%;
+    --input-border: 217 33% 15%;
+    --input-focus: 199 89% 58%;
+    --input-bg: 217 33% 8%;
     
-    /* Card colors */
-    --card-bg: 0 0% 100%;
-    --card-border: 214 32% 91%;
+    /* Shadows with glow effects */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5);
+    --shadow-glow-primary: 0 0 20px rgba(56, 189, 248, 0.3);
+    --shadow-glow-success: 0 0 20px rgba(52, 211, 153, 0.3);
   }
   
   /* Typography baseline */
@@ -144,9 +159,16 @@
     @apply text-sm text-muted-foreground mt-2;
   }
   
-  /* Card Styles */
+  /* Card Styles - Modern Glass Effect */
   .card {
-    @apply bg-card-bg border border-card-border rounded-xl shadow-sm;
+    @apply bg-card-bg border border-card-border rounded-xl transition-all duration-200;
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .card:hover {
+    @apply border-border;
+    background: hsl(var(--card-hover));
+    box-shadow: var(--shadow-md);
   }
   
   .card-header {
@@ -159,6 +181,10 @@
   
   .card-footer {
     @apply p-6 border-t border-card-border;
+  }
+  
+  .card-glass {
+    @apply backdrop-blur-sm bg-card-bg/80;
   }
   
   /* Badge Styles */
