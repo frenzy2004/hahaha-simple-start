@@ -190,70 +190,13 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
         </div>
       </div>
 
-      {/* Sub-tabs */}
-      <div className="bg-background border-b border-border px-6 py-1.5">
-        <div className="text-xs text-muted-foreground mb-1.5">All Tabs</div>
-        <div className="flex gap-2 overflow-x-auto">
-          <button
-            onClick={() => setActiveTab('overview')}
-            className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
-              activeTab === 'overview'
-                ? 'bg-primary text-primary-foreground shadow-sm'
-                : 'text-muted-foreground hover:text-foreground hover:bg-muted'
-            }`}
-          >
-            Overview
-          </button>
-          <button
-            onClick={() => setActiveTab('businesses')}
-            className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
-              activeTab === 'businesses'
-                ? 'bg-primary text-primary-foreground shadow-sm'
-                : 'text-muted-foreground hover:text-foreground hover:bg-muted'
-            }`}
-          >
-            Competitor nearby
-          </button>
-          <button
-            onClick={() => setActiveTab('rent')}
-            className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
-              activeTab === 'rent'
-                ? 'bg-primary text-primary-foreground shadow-sm'
-                : 'text-muted-foreground hover:text-foreground hover:bg-muted'
-            }`}
-          >
-            Rent location
-          </button>
-          <button
-            onClick={() => setActiveTab('ai-insight')}
-            className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
-              activeTab === 'ai-insight'
-                ? 'bg-primary text-primary-foreground shadow-sm'
-                : 'text-muted-foreground hover:text-foreground hover:bg-muted'
-            }`}
-          >
-            AI Insight
-          </button>
-          <button
-            onClick={() => setActiveTab('urban-development')}
-            className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
-              activeTab === 'urban-development'
-                ? 'bg-primary text-primary-foreground shadow-sm'
-                : 'text-muted-foreground hover:text-foreground hover:bg-muted'
-            }`}
-          >
-            Urban Development
-          </button>
-        </div>
-      </div>
-
       {/* Main Content */}
       <div className="flex-1 flex overflow-hidden">
         {/* Analysis Panel */}
         <div
           className={`bg-card border-r border-border transition-all duration-300 ease-in-out overflow-hidden ${
             isPanelOpen ? 'w-full' : 'w-0'
-          } lg:w-1/2`}
+          } lg:w-[35%]`}
         >
           <div className="h-full flex flex-col">
             {/* Panel Header */}
@@ -333,23 +276,83 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
           </div>
         </div>
 
-        {/* Map */}
-        <div className="flex-1 transition-all duration-300 ease-in-out">
-          {isGeocoding ? (
-            <div className="w-full h-full bg-muted flex items-center justify-center">
-              <div className="text-center">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
-                <div className="text-muted-foreground">Finding location...</div>
-              </div>
+        {/* Right Panel with Sub-tabs and Content */}
+        <div className="flex-1 transition-all duration-300 ease-in-out flex flex-col">
+          {/* Sub-tabs */}
+          <div className="bg-background border-b border-border px-6 py-1.5">
+            <div className="text-xs text-muted-foreground mb-1.5">All Tabs</div>
+            <div className="flex gap-2 overflow-x-auto">
+              <button
+                onClick={() => setActiveTab('overview')}
+                className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+                  activeTab === 'overview'
+                    ? 'bg-primary text-primary-foreground shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                }`}
+              >
+                Overview
+              </button>
+              <button
+                onClick={() => setActiveTab('businesses')}
+                className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+                  activeTab === 'businesses'
+                    ? 'bg-primary text-primary-foreground shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                }`}
+              >
+                Competitor nearby
+              </button>
+              <button
+                onClick={() => setActiveTab('rent')}
+                className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+                  activeTab === 'rent'
+                    ? 'bg-primary text-primary-foreground shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                }`}
+              >
+                Rent location
+              </button>
+              <button
+                onClick={() => setActiveTab('ai-insight')}
+                className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+                  activeTab === 'ai-insight'
+                    ? 'bg-primary text-primary-foreground shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                }`}
+              >
+                AI Insight
+              </button>
+              <button
+                onClick={() => setActiveTab('urban-development')}
+                className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+                  activeTab === 'urban-development'
+                    ? 'bg-primary text-primary-foreground shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                }`}
+              >
+                Urban Development
+              </button>
             </div>
-          ) : (
-            <GoogleMap
-              location={analysis.location}
-              businesses={businesses}
-              onBusinessClick={handleBusinessClick}
-              className="w-full h-full"
-            />
-          )}
+          </div>
+
+          {/* Content Area */}
+          <div className="flex-1 overflow-hidden">
+            {isGeocoding ? (
+              <div className="w-full h-full bg-muted flex items-center justify-center">
+                <div className="text-center">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+                  <div className="text-muted-foreground">Finding location...</div>
+                </div>
+              </div>
+            ) : (
+              <GoogleMap
+                location={analysis.location}
+                businesses={businesses}
+                onBusinessClick={handleBusinessClick}
+                className="w-full h-full"
+              />
+            )}
+          </div>
         </div>
       </div>
 
