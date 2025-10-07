@@ -177,6 +177,19 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
             <h1 className="text-xl font-semibold text-foreground">Location Analysis</h1>
             <p className="text-sm text-muted-foreground">{location} • {businessType}</p>
           </div>
+
+          {/* Map View Toggle in Header */}
+          <button
+            onClick={() => setShowMap(!showMap)}
+            className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 flex items-center gap-2 ${
+              showMap
+                ? 'bg-primary text-primary-foreground shadow-sm'
+                : 'bg-muted text-muted-foreground hover:text-foreground hover:bg-muted/80'
+            }`}
+          >
+            <Map className="w-4 h-4" />
+            Map View
+          </button>
         </div>
 
         <div className="flex items-center gap-3">
@@ -202,21 +215,6 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
 
         {/* Right Panel with Sub-tabs and Content */}
         <div className="flex-1 transition-all duration-300 ease-in-out flex flex-col">
-          {/* Map Toggle */}
-          <div className="bg-background border-b border-border px-6 py-2">
-            <button
-              onClick={() => setShowMap(!showMap)}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 flex items-center gap-2 ${
-                showMap
-                  ? 'bg-primary text-primary-foreground shadow-sm'
-                  : 'bg-muted text-muted-foreground hover:text-foreground hover:bg-muted/80'
-              }`}
-            >
-              <Map className="w-4 h-4" />
-              Map View
-            </button>
-          </div>
-
           {/* Sub-tabs */}
           <div className="bg-background border-b border-border px-6 py-1.5">
             <div className="text-xs text-muted-foreground mb-1.5">All Tabs</div>
