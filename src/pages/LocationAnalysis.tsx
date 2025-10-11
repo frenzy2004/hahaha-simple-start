@@ -119,7 +119,7 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
   return (
     <div className="h-screen bg-background flex">
       {/* LEFT SIDEBAR - AI Chat (EXACT GARUDA SPECS: w-2/5) */}
-      <div className="hidden lg:flex w-2/5 h-full border-r border-border/50 bg-card/30 backdrop-blur-sm flex-col">
+      <div className="hidden lg:flex w-2/5 h-full border-r border-border/50 bg-card flex-col">
         {/* Logo Header - FIXED/STATIC */}
         <div className="border-b border-border/50 p-4 flex-shrink-0">
           <div className="flex items-center gap-3">
@@ -152,7 +152,7 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
           className="w-full h-full flex flex-col"
         >
           {/* Tab Navigation - EXACT Garuda spacing */}
-          <div className="flex-shrink-0 border-b border-border/50 bg-card/30 backdrop-blur-sm">
+          <div className="flex-shrink-0 border-b border-border/50 bg-card">
             <div className="px-6 py-[22px] flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <TabsList className="grid w-full max-w-lg grid-cols-3 bg-card/30 border border-border/50">
@@ -489,16 +489,8 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
                     <div className="pb-6">
                       {/* Header Section */}
                       <div className="p-6 pb-4 border-b border-border bg-background">
-                        <div className="flex items-center justify-between mb-2">
+                        <div className="mb-2">
                           <h3 className="text-xl font-bold text-foreground">Satellite Analysis</h3>
-                          <div className="flex items-center gap-2">
-                            <button className="btn-icon btn-ghost">
-                              <Download className="w-4 h-4" />
-                            </button>
-                            <button className="btn-icon btn-ghost">
-                              <span className="w-4 h-4">🔄</span>
-                            </button>
-                          </div>
                         </div>
                         <p className="text-sm text-muted-foreground">
                           {location} • 2017-04-10 to 2025-04-28
@@ -557,7 +549,7 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
                           <div className="grid grid-cols-2 gap-4 min-h-[600px]">
                             {/* Before Image */}
                             <div className="relative rounded-lg overflow-hidden bg-background-elevated border border-border group">
-                              <div className="absolute top-4 left-4 z-10 px-3 py-1.5 bg-background/90 backdrop-blur-sm rounded-md border border-border">
+                              <div className="absolute top-4 left-4 z-10 px-3 py-1.5 bg-background rounded-md border border-border">
                                 <span className="text-sm font-medium text-foreground">Before</span>
                                 <span className="text-xs text-muted-foreground ml-2">2017-04-10</span>
                               </div>
@@ -574,7 +566,7 @@ const LocationAnalysis: React.FC<LocationAnalysisProps> = ({
 
                             {/* After Image */}
                             <div className="relative rounded-lg overflow-hidden bg-background-elevated border border-border group">
-                              <div className="absolute top-4 left-4 z-10 px-3 py-1.5 bg-background/90 backdrop-blur-sm rounded-md border border-border">
+                              <div className="absolute top-4 left-4 z-10 px-3 py-1.5 bg-background rounded-md border border-border">
                                 <span className="text-sm font-medium text-foreground">After</span>
                                 <span className="text-xs text-muted-foreground ml-2">2025-04-28</span>
                               </div>
