@@ -79,7 +79,7 @@ const AIAssistant: React.FC<AIAssistantProps> = () => {
   };
 
   return (
-    <div className="flex flex-col h-full bg-card/50 backdrop-blur-sm">
+    <div className="flex flex-col h-full bg-card">
       {/* Messages - Garuda Style - FULLY SCROLLABLE */}
       <div className="flex-1 overflow-y-auto relative">
         <div className="p-4 space-y-4">
@@ -100,7 +100,7 @@ const AIAssistant: React.FC<AIAssistantProps> = () => {
               <div
                 className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium shrink-0 ${
                   message.isUser
-                    ? 'bg-primary text-primary-foreground'
+                    ? 'bg-white text-black'
                     : 'bg-secondary text-secondary-foreground'
                 }`}
               >
@@ -148,27 +148,25 @@ const AIAssistant: React.FC<AIAssistantProps> = () => {
 
       {/* Input - Garuda Style */}
       <div className="border-t border-border/50 p-4">
-        <div className="flex items-end gap-2">
-          <div className="flex-1">
-            <textarea
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                  e.preventDefault();
-                  handleSendMessage();
-                }
-              }}
-              placeholder="Ask about location analysis results..."
-              className="resize-none min-h-[44px] max-h-[120px] w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground text-sm placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
-              disabled={isTyping}
-              rows={1}
-            />
-          </div>
+        <div className="flex items-center gap-3">
+          <textarea
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleSendMessage();
+              }
+            }}
+            placeholder="Ask about location analysis results..."
+            className="flex-1 resize-none h-11 w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground text-sm placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all overflow-hidden"
+            disabled={isTyping}
+            rows={1}
+          />
           <button
             onClick={() => handleSendMessage()}
             disabled={!inputValue.trim() || isTyping}
-            className="h-11 px-4 bg-gradient-to-r from-primary to-secondary text-white rounded-lg hover:shadow-lg hover:shadow-primary/25 disabled:opacity-40 disabled:cursor-not-allowed transition-all flex items-center justify-center"
+            className="h-11 w-11 bg-primary text-black rounded-lg hover:bg-primary/90 hover:shadow-lg disabled:opacity-40 disabled:cursor-not-allowed transition-all flex items-center justify-center flex-shrink-0"
             aria-label="Send message"
           >
             <Send className="w-4 h-4" />
