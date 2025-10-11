@@ -171,7 +171,7 @@ const RentLocationContent: React.FC<RentLocationContentProps> = ({ location, bus
   return (
     <div className="space-y-6">
       {/* Market Overview */}
-      <div className="bg-gradient-to-r from-primary to-secondary text-white rounded-xl p-6 shadow-lg">
+      <div className="bg-gradient-to-r from-primary to-secondary text-white rounded-xl p-6 shadow-lg border border-border/30">
         <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
           <Building className="w-6 h-6" />
           Rental Market Overview

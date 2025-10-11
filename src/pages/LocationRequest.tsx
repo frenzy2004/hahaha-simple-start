@@ -84,7 +84,18 @@ const LocationRequest: React.FC<LocationRequestProps> = ({ onSubmit }) => {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-8 py-16 relative overflow-hidden">
-      <NeuralBackground />
+      {/* Video Background */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover z-0"
+      >
+        <source src="/motion.webm" type="video/webm" />
+      </video>
+      {/* Dark overlay for better text readability */}
+      <div className="absolute inset-0 bg-black/40 z-0"></div>
       <DottedSurface />
       
       <div className="w-full max-w-7xl space-y-12 animate-fade-in relative z-10">
@@ -92,8 +103,8 @@ const LocationRequest: React.FC<LocationRequestProps> = ({ onSubmit }) => {
         <div className="text-center space-y-6">
           <div className="flex items-center justify-center gap-4 mb-4">
             <div className="relative">
-              <MapPin className="w-16 h-16 text-secondary drop-shadow-lg" fill="currentColor" />
-              <div className="absolute inset-0 blur-xl bg-secondary/30"></div>
+              <MapPin className="w-16 h-16 text-blue-500 drop-shadow-lg" fill="currentColor" />
+              <div className="absolute inset-0 blur-xl bg-blue-500/30"></div>
             </div>
             <h1 className="text-7xl font-bold text-white drop-shadow-2xl">
               BizLocate
@@ -116,27 +127,27 @@ const LocationRequest: React.FC<LocationRequestProps> = ({ onSubmit }) => {
                 onChange={(e) => handleLocationChange(e.target.value)}
                 onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
                 placeholder="e.g., near LRT KLCC, Malaysia"
-                className="w-full h-14 px-12 bg-white/95 backdrop-blur-sm border-2 border-foreground/20 rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all shadow-lg text-base"
+                className="w-full h-14 px-12 bg-white/95 backdrop-blur-sm border-2 border-gray-300 rounded-lg text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-lg text-base"
                 required
               />
-              <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none" />
+              <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 pointer-events-none" />
               
               {showSuggestions && suggestions.length > 0 && (
-                <div className="absolute z-50 w-full mt-2 bg-white border-2 border-foreground/20 rounded-lg shadow-2xl max-h-80 overflow-y-auto">
+                <div className="absolute z-50 w-full mt-2 bg-white border-2 border-gray-300 rounded-lg shadow-2xl max-h-80 overflow-y-auto">
                   {suggestions.map((suggestion) => (
                     <button
                       key={suggestion.place_id}
                       type="button"
                       onClick={() => handleSuggestionClick(suggestion)}
-                      className="w-full text-left px-4 py-3 hover:bg-primary-light transition-colors border-b border-border last:border-b-0"
+                      className="w-full text-left px-4 py-3 hover:bg-blue-50 transition-colors border-b border-gray-200 last:border-b-0"
                     >
                       <div className="flex items-start gap-2">
-                        <MapPin className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
+                        <MapPin className="w-4 h-4 text-blue-500 mt-1 flex-shrink-0" />
                         <div>
-                          <div className="font-medium text-foreground">
+                          <div className="font-medium text-gray-900">
                             {suggestion.structured_formatting.main_text}
                           </div>
-                          <div className="text-sm text-muted-foreground">
+                          <div className="text-sm text-gray-600">
                             {suggestion.structured_formatting.secondary_text}
                           </div>
                         </div>
@@ -153,7 +164,7 @@ const LocationRequest: React.FC<LocationRequestProps> = ({ onSubmit }) => {
                 id="business-type"
                 value={businessType}
                 onChange={(e) => setBusinessType(e.target.value)}
-                className="h-14 px-6 pr-10 bg-white/95 backdrop-blur-sm border-2 border-foreground/20 rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all shadow-lg min-w-[220px] appearance-none text-base"
+                className="h-14 px-6 pr-10 bg-white/95 backdrop-blur-sm border-2 border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-lg min-w-[220px] appearance-none text-base"
                 required
               >
                 <option value="">Select business type</option>
@@ -163,7 +174,7 @@ const LocationRequest: React.FC<LocationRequestProps> = ({ onSubmit }) => {
                   </option>
                 ))}
               </select>
-              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none" />
+              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 pointer-events-none" />
             </div>
 
             {/* Business Scale Dropdown */}
@@ -172,7 +183,7 @@ const LocationRequest: React.FC<LocationRequestProps> = ({ onSubmit }) => {
                 id="business-scale"
                 value={businessScale}
                 onChange={(e) => setBusinessScale(e.target.value)}
-                className="h-14 px-6 pr-10 bg-white/95 backdrop-blur-sm border-2 border-foreground/20 rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all shadow-lg min-w-[220px] appearance-none text-base"
+                className="h-14 px-6 pr-10 bg-white/95 backdrop-blur-sm border-2 border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-lg min-w-[220px] appearance-none text-base"
                 required
               >
                 <option value="">Select business scale</option>
@@ -182,14 +193,14 @@ const LocationRequest: React.FC<LocationRequestProps> = ({ onSubmit }) => {
                   </option>
                 ))}
               </select>
-              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none" />
+              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 pointer-events-none" />
             </div>
 
             {/* Submit Button */}
             <button
               type="submit"
               disabled={!isFormValid}
-              className="h-14 px-8 bg-primary hover:bg-primary-hover text-white font-semibold rounded-lg transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-primary whitespace-nowrap text-base"
+              className="h-14 px-8 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-blue-600 whitespace-nowrap text-base"
             >
               {isFormValid ? 'Analyze Location' : 'Fill all fields'}
             </button>

@@ -74,13 +74,13 @@ const SeasonalDemandChart: React.FC<SeasonalDemandChartProps> = ({ data }) => {
       {
         label: 'Demand Score',
         data: data.map(d => d.demand),
-        borderColor: 'hsl(199, 89%, 48%)',
-        backgroundColor: 'rgba(14, 165, 233, 0.1)',
+        borderColor: 'hsl(262, 83%, 58%)',
+        backgroundColor: 'rgba(139, 92, 246, 0.15)',
         borderWidth: 3,
         fill: true,
         tension: 0.4,
-        pointBackgroundColor: 'hsl(199, 89%, 48%)',
-        pointBorderColor: '#ffffff',
+        pointBackgroundColor: 'hsl(262, 83%, 58%)',
+        pointBorderColor: 'hsl(240, 10%, 8%)',
         pointBorderWidth: 2,
         pointRadius: 6,
         pointHoverRadius: 8,
@@ -108,10 +108,10 @@ const SeasonalDemandChart: React.FC<SeasonalDemandChartProps> = ({ data }) => {
             ];
           },
         },
-        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        backgroundColor: 'rgba(15, 15, 25, 0.95)',
         titleColor: '#ffffff',
-        bodyColor: '#ffffff',
-        borderColor: 'hsl(199, 89%, 48%)',
+        bodyColor: '#9ca3af',
+        borderColor: 'hsl(262, 83%, 58%)',
         borderWidth: 1,
         cornerRadius: 8,
         padding: 12,
@@ -123,11 +123,11 @@ const SeasonalDemandChart: React.FC<SeasonalDemandChartProps> = ({ data }) => {
         min: 60,
         max: 100,
         grid: {
-          color: 'rgba(0, 0, 0, 0.1)',
+          color: 'rgba(255, 255, 255, 0.05)',
           drawBorder: false,
         },
         ticks: {
-          color: '#6B7280',
+          color: '#9ca3af',
           font: {
             size: 12,
           },
@@ -138,7 +138,7 @@ const SeasonalDemandChart: React.FC<SeasonalDemandChartProps> = ({ data }) => {
           display: false,
         },
         ticks: {
-          color: '#6B7280',
+          color: '#9ca3af',
           font: {
             size: 12,
           },
@@ -154,19 +154,22 @@ const SeasonalDemandChart: React.FC<SeasonalDemandChartProps> = ({ data }) => {
   const annotations = getAnnotationPositions();
 
   return (
-    <div className="bg-card rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 animate-fade-in">
-      <div className="bg-gradient-to-r from-primary to-secondary text-white p-4 rounded-t-lg -m-6 mb-6">
-        <h3 className="text-lg font-semibold">Seasonal Demand Trends</h3>
-        <p className="text-white/80 text-sm">Monthly demand patterns throughout the year</p>
+    <div className="card-elevated p-6 animate-fade-in">
+      <div className="flex items-center gap-2 mb-6">
+        <div className="w-1 h-6 bg-gradient-to-b from-primary to-secondary rounded-full"></div>
+        <div>
+          <h3 className="text-lg font-semibold text-foreground">Seasonal Demand Trends</h3>
+          <p className="text-xs text-muted-foreground">Monthly demand patterns throughout the year</p>
+        </div>
       </div>
       <div className="relative h-96 mb-4">
         {annotations.map((annotation) => (
           <div
             key={`${annotation.index}-${annotation.type}`}
-            className={`absolute text-xs px-3 py-1.5 rounded-full font-medium shadow-sm transition-all duration-300 hover:scale-105 ${
-              annotation.type === 'peak' 
-                ? 'bg-green-100 text-green-800 border border-green-200' 
-                : 'bg-red-100 text-red-800 border border-red-200'
+            className={`absolute text-xs px-3 py-1.5 rounded-lg font-medium shadow-sm transition-all duration-300 hover:scale-105 ${
+              annotation.type === 'peak'
+                ? 'bg-success/20 text-success border border-success/30'
+                : 'bg-destructive/20 text-destructive border border-destructive/30'
             }`}
             style={{
               left: `${annotation.left}%`,
@@ -183,32 +186,32 @@ const SeasonalDemandChart: React.FC<SeasonalDemandChartProps> = ({ data }) => {
         ))}
         <Line data={chartData} options={options} />
       </div>
-      
+
       {/* Summary Statistics */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-border">
-        <div className="text-center">
-          <div className="text-lg font-semibold text-foreground">
+        <div className="text-center p-3 bg-background-alt rounded-lg">
+          <div className="text-2xl font-bold text-foreground">
             {Math.max(...data.map(d => d.demand))}
           </div>
-          <div className="text-xs text-muted-foreground">Peak Demand</div>
+          <div className="text-xs text-muted-foreground uppercase tracking-wide mt-1">Peak Demand</div>
         </div>
-        <div className="text-center">
-          <div className="text-lg font-semibold text-foreground">
+        <div className="text-center p-3 bg-background-alt rounded-lg">
+          <div className="text-2xl font-bold text-foreground">
             {Math.min(...data.map(d => d.demand))}
           </div>
-          <div className="text-xs text-muted-foreground">Low Demand</div>
+          <div className="text-xs text-muted-foreground uppercase tracking-wide mt-1">Low Demand</div>
         </div>
-        <div className="text-center">
-          <div className="text-lg font-semibold text-foreground">
+        <div className="text-center p-3 bg-background-alt rounded-lg">
+          <div className="text-2xl font-bold text-foreground">
             {(data.reduce((sum, d) => sum + d.demand, 0) / data.length).toFixed(0)}
           </div>
-          <div className="text-xs text-muted-foreground">Average</div>
+          <div className="text-xs text-muted-foreground uppercase tracking-wide mt-1">Average</div>
         </div>
-        <div className="text-center">
-          <div className="text-lg font-semibold text-foreground">
+        <div className="text-center p-3 bg-background-alt rounded-lg">
+          <div className="text-2xl font-bold text-foreground">
             {(data.reduce((sum, d) => sum + Math.abs(d.change), 0) / data.length).toFixed(1)}%
           </div>
-          <div className="text-xs text-muted-foreground">Avg Change</div>
+          <div className="text-xs text-muted-foreground uppercase tracking-wide mt-1">Avg Change</div>
         </div>
       </div>
     </div>

@@ -15,8 +15,16 @@ export default {
           hover: 'hsl(var(--secondary-hover))',
           light: 'hsl(var(--secondary-light))',
         },
-        background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
+        background: {
+          DEFAULT: 'hsl(var(--background))',
+          alt: 'hsl(var(--background-alt))',
+          elevated: 'hsl(var(--background-elevated))',
+        },
+        foreground: {
+          DEFAULT: 'hsl(var(--foreground))',
+          secondary: 'hsl(var(--foreground-secondary))',
+          muted: 'hsl(var(--foreground-muted))',
+        },
         muted: {
           DEFAULT: 'hsl(var(--muted))',
           foreground: 'hsl(var(--muted-foreground))',
@@ -46,7 +54,12 @@ export default {
         },
         card: {
           bg: 'hsl(var(--card-bg))',
+          elevated: 'hsl(var(--card-bg-elevated))',
           border: 'hsl(var(--card-border))',
+        },
+        gradient: {
+          from: 'hsl(var(--gradient-from))',
+          to: 'hsl(var(--gradient-to))',
         },
       },
       fontSize: {

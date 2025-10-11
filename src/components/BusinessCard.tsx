@@ -42,37 +42,44 @@ const BusinessCard: React.FC<BusinessCardProps> = ({ business, onClick }) => {
 
   return (
     <div
-      className="card hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:scale-[1.02]"
+      className="card-elevated hover:shadow-xl hover:border-primary/30 transition-all duration-300 cursor-pointer transform hover:scale-[1.01] group"
       onClick={() => onClick(business)}
     >
-      <div className="flex p-4 gap-4">
-        <img
-          src={business.thumbnail}
-          alt={business.name}
-          className="w-20 h-20 rounded-lg object-cover flex-shrink-0 shadow-sm"
-        />
+      <div className="flex p-5 gap-4">
+        <div className="relative">
+          <img
+            src={business.thumbnail}
+            alt={business.name}
+            className="w-24 h-24 rounded-lg object-cover flex-shrink-0 border border-border group-hover:border-primary/50 transition-all"
+          />
+          <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-white text-xs font-bold">
+            {business.rating.toFixed(1)}
+          </div>
+        </div>
         <div className="flex-1 min-w-0">
-          <h3 className="font-semibold text-foreground truncate text-base">{business.name}</h3>
-          <div className="flex items-center gap-2 mt-1.5">
+          <h3 className="font-bold text-foreground truncate text-base mb-2">{business.name}</h3>
+          <div className="flex items-center gap-2 mb-2">
             <div className="flex items-center gap-0.5">
               {renderStars(business.rating)}
             </div>
-            <span className="text-sm font-medium text-foreground">{business.rating}</span>
+            <span className="text-xs text-muted-foreground">({business.rating})</span>
           </div>
-          <div className="flex items-center gap-1.5 mt-2 text-sm text-muted-foreground">
-            <MapPin className="w-3.5 h-3.5" />
+          <div className="flex items-center gap-1.5 text-xs text-muted-foreground mb-3">
+            <MapPin className="w-3.5 h-3.5 text-primary" />
             <span className="truncate">{business.address}</span>
           </div>
-          <div className="flex items-center justify-between mt-2">
-            <span className="text-sm font-medium text-primary">{business.distance}km away</span>
-            <span className="badge-primary">
+          <div className="flex items-center gap-2">
+            <div className="px-2 py-1 bg-primary/10 border border-primary/20 rounded text-xs font-medium text-primary">
+              {business.distance}km away
+            </div>
+            <span className="badge-accent text-xs">
               {business.category}
             </span>
           </div>
         </div>
       </div>
-      <div className="border-t border-card-border px-4 py-3">
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+      <div className="border-t border-border px-5 py-3 bg-background/40">
+        <div className="flex items-center gap-2 text-xs text-muted-foreground">
           <Phone className="w-3.5 h-3.5" />
           <span>{business.contact}</span>
         </div>

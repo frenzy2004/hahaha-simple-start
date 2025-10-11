@@ -18,75 +18,83 @@ const KPICards: React.FC<KPICardsProps> = ({ kpis }) => {
       value: (kpis.revenuePotential / 1000).toFixed(0),
       unit: 'K RM',
       icon: Target,
-      color: 'bg-primary',
-      bgColor: 'bg-primary-light',
-      textColor: 'text-primary',
-      borderColor: 'border-primary/20',
+      iconBg: 'bg-primary/10',
+      iconColor: 'text-primary',
+      valueColor: 'text-foreground',
+      glowColor: 'hover:shadow-primary/20',
     },
     {
       title: 'Competitor Count',
       value: kpis.competitorCount.toString(),
-      unit: '',
+      unit: 'nearby',
       icon: Users,
-      color: 'bg-destructive',
-      bgColor: 'bg-destructive/10',
-      textColor: 'text-destructive',
-      borderColor: 'border-destructive/20',
+      iconBg: 'bg-destructive/10',
+      iconColor: 'text-destructive',
+      valueColor: 'text-foreground',
+      glowColor: 'hover:shadow-destructive/20',
     },
     {
       title: 'Avg Rating',
       value: kpis.avgRating.toFixed(1),
-      unit: '⭐',
+      unit: '/ 5.0',
       icon: Star,
-      color: 'bg-warning',
-      bgColor: 'bg-warning-light',
-      textColor: 'text-warning',
-      borderColor: 'border-warning/20',
+      iconBg: 'bg-warning/10',
+      iconColor: 'text-warning',
+      valueColor: 'text-foreground',
+      glowColor: 'hover:shadow-warning/20',
     },
     {
       title: 'Est. Monthly Demand',
       value: (kpis.monthlyDemand / 1000).toFixed(1),
       unit: 'K visits',
       icon: TrendingUp,
-      color: 'bg-success',
-      bgColor: 'bg-success-light',
-      textColor: 'text-success',
-      borderColor: 'border-success/20',
+      iconBg: 'bg-success/10',
+      iconColor: 'text-success',
+      valueColor: 'text-foreground',
+      glowColor: 'hover:shadow-success/20',
     },
     {
       title: 'Rent Sensitivity',
       value: kpis.rentSensitivity.toString(),
-      unit: '/100',
+      unit: '/ 100',
       icon: DollarSign,
-      color: 'bg-accent',
-      bgColor: 'bg-accent-light',
-      textColor: 'text-accent',
-      borderColor: 'border-accent/20',
+      iconBg: 'bg-accent/10',
+      iconColor: 'text-accent',
+      valueColor: 'text-foreground',
+      glowColor: 'hover:shadow-accent/20',
     },
-
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-8">
-      {cards.map((card, index) => (
-        <div
-          key={index}
-          className={`${card.bgColor} ${card.borderColor} border rounded-xl p-5 transition-all duration-300 hover:scale-105 hover:shadow-lg min-h-[140px] flex flex-col justify-between`}
-        >
-          <div className="flex items-center justify-between mb-3">
-            <div className={`p-2.5 ${card.color} rounded-lg shadow-sm`}>
-              <card.icon className="w-4 h-4 text-white" />
+    <div className="space-y-4">
+      {/* Section Header */}
+      <div className="flex items-center gap-2">
+        <div className="w-1 h-6 bg-gradient-to-b from-primary to-secondary rounded-full"></div>
+        <h3 className="text-lg font-semibold text-foreground">Key Performance Indicators</h3>
+      </div>
+
+      {/* KPI Cards Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+        {cards.map((card, index) => (
+          <div
+            key={index}
+            className={`card-elevated p-5 transition-all duration-300 hover:scale-[1.02] ${card.glowColor} hover:shadow-xl group`}
+          >
+            <div className="flex items-center justify-between mb-4">
+              <div className={`p-3 ${card.iconBg} rounded-lg group-hover:scale-110 transition-transform`}>
+                <card.icon className={`w-5 h-5 ${card.iconColor}`} />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <div className={`text-3xl font-bold ${card.valueColor} leading-none`}>
+                {card.value}
+                <span className="text-base font-medium text-muted-foreground ml-1">{card.unit}</span>
+              </div>
+              <div className="text-xs text-muted-foreground uppercase tracking-wide font-medium">{card.title}</div>
             </div>
           </div>
-          <div className="flex-1 flex flex-col justify-center">
-            <div className={`text-2xl font-bold ${card.textColor} mb-1 leading-tight`}>
-              {card.value}
-              <span className="text-lg font-medium ml-1">{card.unit}</span>
-            </div>
-            <div className="text-sm text-muted-foreground font-medium leading-tight">{card.title}</div>
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };

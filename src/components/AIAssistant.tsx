@@ -79,20 +79,17 @@ const AIAssistant: React.FC<AIAssistantProps> = () => {
   };
 
   return (
-    <div className="bg-card w-full h-full flex flex-col">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-primary to-secondary text-primary-foreground p-4 flex items-center justify-between border-b">
-        <div className="flex items-center gap-3">
-          <Bot className="w-6 h-6" />
-          <div>
-            <h2 className="text-lg font-semibold">AI Location Assistant</h2>
-            <p className="text-primary-foreground/80 text-sm">Ask me about your location analysis</p>
+    <div className="flex flex-col h-full bg-card/50 backdrop-blur-sm">
+      {/* Messages - Garuda Style - FULLY SCROLLABLE */}
+      <div className="flex-1 overflow-y-auto relative">
+        <div className="p-4 space-y-4">
+          {/* Header - SCROLLS WITH MESSAGES */}
+          <div className="pb-4 border-b border-border/50">
+            <h2 className="text-lg font-semibold text-foreground">BizLocate AI</h2>
+            <p className="text-sm max-w-sm text-muted-foreground">
+              Ask questions about your location analysis results
+            </p>
           </div>
-        </div>
-      </div>
-
-      {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-background">
           {messages.map((message) => (
             <div
               key={message.id}
@@ -101,90 +98,80 @@ const AIAssistant: React.FC<AIAssistantProps> = () => {
               }`}
             >
               <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+                className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium shrink-0 ${
                   message.isUser
-                    ? 'bg-primary text-white'
-                    : 'bg-muted text-muted-foreground'
+                    ? 'bg-primary text-primary-foreground'
+                    : 'bg-secondary text-secondary-foreground'
                 }`}
               >
-                {message.isUser ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
+                {message.isUser ? 'U' : 'AI'}
               </div>
               <div
-                className={`max-w-xs lg:max-w-md px-4 py-2 rounded-2xl ${
-                  message.isUser
-                    ? 'bg-primary text-white'
-                    : 'bg-muted text-foreground'
-                }`}
+                className={`flex-1 space-y-2 ${message.isUser ? '' : ''}`}
               >
-                <p className="text-sm">{message.text}</p>
-                <p
-                  className={`text-xs mt-1 ${
-                    message.isUser ? 'text-white/70' : 'text-muted-foreground'
+                <div
+                  className={`rounded-lg p-3 max-w-none break-words ${
+                    message.isUser
+                      ? 'bg-primary/10 text-foreground'
+                      : 'bg-secondary text-foreground'
                   }`}
                 >
-                  {message.timestamp.toLocaleTimeString([], {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                  })}
-                </p>
+                  <p className="text-sm leading-relaxed">{message.text}</p>
+                  <p className="text-xs mt-1.5 text-muted-foreground">
+                    {message.timestamp.toLocaleTimeString([], {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })}
+                  </p>
+                </div>
               </div>
             </div>
           ))}
 
           {isTyping && (
             <div className="flex gap-3">
-              <div className="w-8 h-8 rounded-full bg-muted text-muted-foreground flex items-center justify-center">
-                <Bot className="w-4 h-4" />
+              <div className="w-8 h-8 rounded-lg bg-muted border border-border flex items-center justify-center">
+                <Bot className="w-4 h-4 text-primary" />
               </div>
-              <div className="bg-muted px-4 py-2 rounded-2xl">
-                <div className="flex gap-1">
-                  <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce"></div>
-                  <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                  <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+              <div className="bg-card border border-border px-4 py-3 rounded-lg">
+                <div className="flex gap-1.5">
+                  <div className="w-2 h-2 bg-primary rounded-full animate-bounce"></div>
+                  <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0.15s' }}></div>
+                  <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0.3s' }}></div>
                 </div>
               </div>
             </div>
           )}
-        <div ref={messagesEndRef} />
+          <div ref={messagesEndRef} />
+        </div>
       </div>
 
-      {/* Suggestions */}
-      {messages.length === 1 && (
-        <div className="px-4 pb-4 bg-background">
-          <p className="text-sm text-muted-foreground mb-3">Try asking about:</p>
-          <div className="grid grid-cols-1 gap-2">
-            {chatSuggestions.slice(0, 4).map((suggestion, index) => (
-              <button
-                key={index}
-                onClick={() => handleSendMessage(suggestion)}
-                className="text-left px-4 py-2.5 bg-muted text-foreground rounded-lg hover:bg-muted-foreground/10 transition-all duration-200 text-sm border border-border"
-              >
-                {suggestion}
-              </button>
-            ))}
+      {/* Input - Garuda Style */}
+      <div className="border-t border-border/50 p-4">
+        <div className="flex items-end gap-2">
+          <div className="flex-1">
+            <textarea
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault();
+                  handleSendMessage();
+                }
+              }}
+              placeholder="Ask about location analysis results..."
+              className="resize-none min-h-[44px] max-h-[120px] w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground text-sm placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
+              disabled={isTyping}
+              rows={1}
+            />
           </div>
-        </div>
-      )}
-
-      {/* Input */}
-      <div className="border-t border-border p-4 bg-background">
-        <div className="flex gap-2">
-          <input
-            type="text"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            onKeyPress={handleKeyPress}
-            placeholder="Ask me anything about this location..."
-            className="input flex-1"
-            disabled={isTyping}
-          />
           <button
             onClick={() => handleSendMessage()}
             disabled={!inputValue.trim() || isTyping}
-            className="btn-primary px-6"
+            className="h-11 px-4 bg-gradient-to-r from-primary to-secondary text-white rounded-lg hover:shadow-lg hover:shadow-primary/25 disabled:opacity-40 disabled:cursor-not-allowed transition-all flex items-center justify-center"
             aria-label="Send message"
           >
-            <Send className="w-5 h-5" />
+            <Send className="w-4 h-4" />
           </button>
         </div>
       </div>
